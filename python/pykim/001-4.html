@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+001-4. Operator - if statement<br/>
+<xmp>
+@
+# Day_01_03_if.py
+
+# I want to know value of a is either odd or even
+a = 13
+# If you devide some value by 2, remainder is either some value or 0
+# In terms of programming, when you devide value by 2, and it doesn't create remainder, it is even
+print(a%2)
+
+# In Python, after colon, you need indent in next line which writes detailed contents
+
+if a%2 == 1:
+    print('홀수')
+else:
+    print('짝수')
+
+# If a=13, a%2 = 1, 1 is true
+if a%2:
+    print('홀수')
+else:
+    print('짝수')
+
+# If a=13, 13 is true
+if a:
+    print('홀수')
+else:
+    print('짝수')
+
+if a:
+    print('홀수')
+
+# Quiz
+# You get one number between 0 to 999
+# and guess how many digits do that number have
+
+
+a = input('number : ')
+print(type(a))
+# output: string
+
+a = int(input('number : '))
+# Suppose a = 128
+a = 128
+print(type(a))
+
+# if statement chooses one out of two
+# But this quiz is quiz to choose one out of three
+# Method1
+if a >= 100:
+    print(3)
+if 100 > a >= 10:
+    print(2)
+if 10 > a >= 0:
+    print(1)
+
+# Method2
+if a >= 100:
+    print(3)
+else:
+    # print(2, 1)
+    if a >= 10:
+        print(2)
+    else:
+        print(1)
+
+# Method3
+a1, a2, a3 = bool(a//100), bool(a//10), bool(a//1)
+print(a1 + a2 + a3)
+
+# Method4
+digit = 1
+# if a >= 100:    digit = digit+1;    a = a // 10
+# if a >=  10:    digit = digit+1;    a = a // 10
+
+if a >= 10:    digit = digit+1;    a = a // 10
+if a >= 10:    digit = digit+1;    a = a // 10
+
+print(digit)
+
+
+if a >= 100:
+    print(3)
+elif a >= 10:
+    print(2)
+else:
+    print(1)
+
+if a >= 100:
+    print(3)
+else:
+    # print(2, 1)
+    if a >= 10:
+        print(2)
+    else:
+        print(1)
+
+print('end')
+
+
+
+# whitespace(space, newline, tab) is ignored by Python interpreter
+# print(  'hi')
+# print(
+    
+#     'hi'
+    
+#     )
+# print(
+#             'hi')
+
+
+# Python one line syntax
+if a >= 100:
+    print(3)
+else:
+    if a >= 10:
+        print(2)
+    else:
+        print(1)
+
+# Whitespace is ignored by Python interpreter
+if a >= 100:
+    print(3)
+else:
+if a >= 10:
+    print(2)
+else:
+    print(1)
+
+# We can elevate if line
+if a >= 100:
+    print(3)
+else:if a >= 10:
+    print(2)
+else:
+    print(1)
+
+# We can remove duplicated colon, then, we get "else if" syntax
+if a >= 100:
+    print(3)
+else if a >= 10:
+    print(2)
+else:
+    print(1)
+
+# Python provides elif syntax
+if a >= 100:
+    print(3)
+elif a >= 10:
+    print(2)
+else:
+    print(1)
+
+
+# If you should choose one out of 9 options,
+# you need 9 if
+# Skilled ones make algorithms to remove if statement
+
+
+# 문제
+# 2개의 정수 중에서 큰 숫자를 찾는 함수를 만드세요.
+# return 키워드 여러 번 사용 가능.
+def max2(a, b):
+    # if a >= b:
+    #     return a
+    # else:
+    #     return b
+
+    # if a >= b:
+    #     return a
+    # return b
+
+    if a >= b:
+        b = a
+    return b
+   
+      </xmp>
+   </BODY>
+</HTML>
