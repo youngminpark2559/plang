@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+001-3. Operator<br/>
+<xmp>
+@
+# Day_01_02_operator.py
+
+@
+# The kind of operators : 산술, 관계, 논리, 비트
+
+@
+# 7 Operators for arithmetic : +  -  *  /  //  %  **
+a, b = 17, 5
+c = a+b
+print(c)
+print(a+b)
+print(a-b)
+print(a*b)
+print(a/b)
+print(a//b)
+print(a%b)
+print(a**b)
+
+#      3    quotient is found by "//"
+#   +----
+# 5 | 17
+#     15
+#    ----
+#      2    remainder is found by "%"
+
+# Quiz
+# Transpose each postition from 2 digits positive number
+# For example,
+# 37  -->  73
+# = 3*10+7  -->  7*10+3
+
+n = 37
+a1 = n//10      # 3
+a2 = n %10      # 7
+
+# Other ordinal method to find answer
+n = a2*10 + a1
+print(n)
+print(n%10*10 + n//10)
+
+#       3
+#    +----
+# 10 | 37
+#      30
+#     ----
+#       7
+print('-'*50)
+
+# 6 Operators for relation : >  >=  <  <=  ==  !=
+print(a, b)
+
+print(a >  b)
+print(a >= b)
+print(a <  b)
+print(a <= b)
+print(a == b)
+print(a != b)
+
+# Korean characters can be expressed by unicode, utf-8, euc-kr
+# Alphabet characters can be expressed by ascii, unicode, utf-8, euc-kr
+
+# 형변환(casting) : int(), float(), str(), bool()
+print(int(True))
+# output:1
+# The following '345' is string
+print('345')
+# I want to convert string '345' into integer 345
+print(int('345'))
+print(int(a != b))
+# output:1
+print(int(False))
+# output:0
+
+# Quiz
+# Decide if age is teen or not
+age = 15
+# The followings are condition to decide
+b1 = age >= 10
+b2 = age <= 19
+
+# T * T ouputs T
+# T * F ouputs F
+# F * T ouputs F
+# F * F ouputs F
+
+print(bool(b1*b2))
+# The following makes wrong result without parenthesis
+# print(age >= 10 * age <= 19)
+print((age >= 10) * (age <= 19))
+# The following is unique Python syntax
+print(10 <= age <= 19)
+print(True * True)
+print('-'*50)
+
+# 3 operators for logic : and  or  not
+# operators for logic are only used for binding "operators for relation"
+# Priority : operators for relation > operators for logic
+print(True  and True )
+print(True  and False)
+print(False and True )
+print(False and False)
+
+print(age >= 10 and age <= 19)
+   
+      </xmp>
+   </BODY>
+</HTML>
