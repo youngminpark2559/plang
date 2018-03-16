@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+001-5. Creating function<br/>
+<xmp>
+@
+# Day_01_04_function.py
+
+# Core concept of function : passing data and taking data
+
+# parameter : data
+# return value : data
+
+# Type1: 
+# Funtion without parameter and return value (this type of function is rarely used)
+def f_1():
+    print('f_1')
+
+# Call
+f_1()
+
+# Type2: 
+# Funtion with parameter, without return value
+def f_2(a, b):
+    print('f_2', a, b)
+
+# Call
+f_2(23, 'abc')
+
+# Type3: 
+# Without parameter, with return value
+def f_3():
+    # When we don't write contents in function, we get error
+    # In this case, we temporalily use "pass" keyword
+    # pass
+    print('f_3')
+    return 17
+
+# a = return 17
+a = f_3()
+print(a)
+print(f_3())
+
+# Type4: 
+# With parameter, with return value
+# Quiz: Make function which swap each digit from 2 digits positive number
+def f_4(n):
+    return n%10*10 + n//10
+
+print(f_4(37))
+# output:73
+print(f_4(82))
+# output:28
+
+# Quiz
+# Make function which print largest number from 4 numbers
+# But, don't directly print the largest number
+# in function by using print() inside of function
+# You can use "return" multiple times
+# But it's recommended to use one time
+def max_from_4(a, b, c, d):
+    # return max_from_2(max2(a, b), max_from_2(c, d))
+    return max_from_2(max_from_2(max_from_2(a, b), c), d)
+
+# Sub quiz(easy version)
+# Make function which print largest number from 2 numbers
+def max_from_2(a, b)
+    if a >= b:
+        return a
+    else:
+        return b
+
+# Since "return" means end of function,
+# I can write as following
+def max_from_2(a, b)
+    if a >= b:
+        return a
+    return b
+
+# Let's try to use "return" one time
+# If b is greater than a, I print b
+# If a is greater than b, I overwrite a onto b, and then, print overwritten b
+def max_from_2(a, b)
+    if a >= b:
+        b = a
+    return b
+
+
+print(max_from_2(3, 7))
+print(max_from_2(7, 3))
+
+print(max_from_4(1, 2, 3, 4))
+print(max_from_4(4, 1, 2, 3))
+print(max_from_4(3, 4, 1, 2))
+print(max_from_4(4, 1, 2, 3))
+
+# One of the greatest reasons to write function is reusability
+# Since I already verified max_from_2() works well,
+# it's fair to say max_from_4() will work well
+# Function contributes to stability
+   
+      </xmp>
+   </BODY>
+</HTML>
