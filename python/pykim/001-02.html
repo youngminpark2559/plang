@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+001-2. Introduction to Python<br/>
+<xmp>
+@
+# Day_01_01_Basic.py
+
+# You can run code in PyCharm by "run"(alt shift f10) and select file which you want to run
+# After once run, you can immediately run code by shift f10
+print('Hello, python!')
+
+
+print('Hello, python!'*3)
+
+print('Hello, python!Hello, python!Hello, python!')
+
+print('Hello, python!')
+print('Hello, python!')
+print('Hello, python!')
+
+print("Hello, python!" "Hello, python!" "Hello, python!")
+
+# You can connect upper line and lower line by back slash
+# This make you arrange data as screen shows
+
+print("Hello, python!" \
+      "Hello, python!" \
+      "Hello, python!")
+
+# You can remove back slashes
+# but you never run into any issues with back slashes when you have new line
+print("Hello, python!"
+      "Hello, python!"
+      "Hello, python!")
+
+# It's standard to separate data and data by commma
+# Since print() is defined with variadic Parameters,
+# so, I can pass arguments into print() as much as what I want to pass
+print("Hello, python!", "Hello, python!", "Hello, python!")
+
+@
+# You can copy and paste one line by "ctrl c, ctrl v"
+
+@
+# In some other languages, single quatation and double quatation has difference
+# 'A', "ABC"
+# However, in Python, single quatation and double quatation has no difference
+
+
+# 문제
+# Hello, python!을 3회 출력하는 코드를 3가지 만들어 보세요.
+
+# Programming : The process of making "program"
+# Program : It's composed of "code" and "data"
+# Data : It can be divided into "variable which changes" and "constant which doesn't change"
+# We don't care much about constant because it doesn't change
+# Data type : 
+# "Numeric"(float(real number), 
+# "integer"(-1,0,1)), 
+# Character(string(sequence of characters)), 
+# "boolean"(true, false)
+# In Python, 'one character' and "sequence of characters" don't have difference
+# Imaginary number makes calculation easy in mathematics 
+# but we generally don't treat imaginary number in programming
+# Imaginary number can be processed by external module rather than Python itself
+
+print(3.14, 56, 'hello', True)
+# This code shows data type
+print(type(3.14), type(56), type('hello'), type(True))
+
+# # I use assignment operator(=)
+# "a" is variable
+a = 3.14
+print(3.14, a)
+a = 56
+print(a, type(a))
+
+# \n is newline character
+print('hell\no, python!')
+print('"hello"')
+# output:"hello"
+print("'hello'")
+# output:'hello'
+# For section line
+print('-'*50)
+
+# Other language specifies data type in front of name of variable like "int a = 7"
+# But Python doesn't do that so we say Python doesn't have data type
+# But Python uses data type internally
+
+# Comment is ctrl / or ctrl k,c
+
+# a = 7
+# b = 19
+# The following syntax is Python friendly syntax
+a, b = 7, 19
+# The following syntax is not possible in Python
+# a = 7, b = 19
+# If you want to use above similar syntax, you can you semi colon between variable
+# You can write multiple parts in one line by using semi colon
+# But Python doesn't use semicolon much, so don't recommend this syntax
+# a = 7; b = 19
+print(a, b)
+
+# 문제
+# 아래쪽 코드에서 거꾸로 출력하도록 코드를 추가해 보세요.
+# a와 b를 서로 교환합니다.
+
+# bug.
+# a = 19
+# b = 7
+
+# Let's see answer
+# Suppose there are "juice" and "coke"
+# And I want to swap position of juice and coke
+# I first need empty cup
+# I put juice in empty cup
+# 빈컵 = 주스
+# I put coke in juice's cup
+# 주스 = 콜라
+# I put juice in empty cup in coke's cup
+# 콜라 = 빈컵
+
+# Let's swap
+t = a
+a = b
+b = t
+print(a, b)
+
+# But in Python, we don't above way for swap
+# If you want to swap "a" and "b", you can use "transposition for muliple elements"
+# I put b in a, I put a in a
+a, b = b, a
+print(a, b)
+
+
+# Languages which can pass multiple values 
+# to multiple variable "at once" by using assignment operator are a few,
+# such as Python and other recent a few languages
+
+# Actually, "a, b = b, a" code should be translated into "swap" code internally
+   
+      </xmp>
+   </BODY>
+</HTML>
