@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+035-001. global variable, local variable, global namespace, locals()<br/>
+<xmp>
+@
+# Let's talk about "use range of variable"
+
+# This is global variable
+x = 10
+def foo():
+    print(x)
+ 
+# global scope is range of area where global variable can affect
+
+@
+def foo():
+    # This is local variable
+    x = 10
+    print(x)    
+ 
+foo()
+print(x)
+# output:
+# error
+
+# local scope
+
+@
+Let's try change value of global variable inside of method
+
+x = 10
+def foo():
+    # x is actually local variable named x
+    x = 20      
+    print(x)    
+ 
+foo()
+# output:
+# 20
+print(x)
+# output:
+# 10
+
+@
+# If you want to change value of global variable inside of method,
+# you need to use "global" keyword inside of method
+
+x = 10
+def foo():
+   global x
+    x = 20
+    print(x)
+ 
+foo()
+# output:
+# 20
+print(x)
+# output:
+# 20
+
+@
+# When there is no global variable outside of method,
+# if you use global keyword inside of method,
+# affected local variable by global keyword inside of method becomes global variable
+
+def foo():
+    # Since there is no global variable named x,
+    # this local variable x becomes global variable x
+    global x    
+    x = 20      
+    print(x)    
+ 
+
+@
+# Namespace in Python
+# In Python, variable is stored in namespace
+# If you use locals(), you can print contents of current namespace as dictionary type
+
+x = 10
+locals()
+# output:
+# {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <class '_frozen_importlib.BuiltinImporter'>, '__spec__': None, '__annotations__': {}, '__builtins__': <module 'builtins' (built-in)>, 'x': 10}
+
+# If you see printed contents of namespace, you can see 'x':10 is stored in namespace
+
+# If you invoke locals() in global scope, you will print global namespace
+
+@
+# You can invoke locals() in method
+def foo():
+    x = 10
+    print(locals())
+
+foo()
+# output:
+# {'x': 10}
+
+# In local namespace, only 'x': 10 is stored in it
+   
+      </xmp>
+   </BODY>
+</HTML>
