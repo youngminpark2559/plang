@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+005. Detail of list<br/>
+<xmp>
+@
+# We can use list for data source in "for" iteration statement
+b = [1,2,3,4,5]
+
+for i in b:
+    print(i, end=' ')
+
+# Task which "range()"" can do but which "b" can't do is
+# that when using "b" we should use "entire b"
+
+@
+# Type of range() and type of list are different
+# It's not recommended to use both of them at the same time
+b = [1,2]
+print(type(range(5)), type(b))
+# output:
+# <class 'range'> <class 'list'>
+
+@
+# The common point of range() and list is that they contains multiple values
+# So, we call them iterable
+
+@
+# In Python, we process resersing task by using reversed()
+for i in reversed(b):
+    print(i, end=' ')
+print()
+
+
+@
+for i in reversed(range(len(b))):
+    print(b[i], end=' ')
+print()
+
+
+@
+# We can use enumerate() to print both data and its index
+# as tuple data type
+for i in enumerate(b):
+    print(b[i], end=' ')
+print()
+
+
+@
+# We can remove parenthesis when displaying
+for i in enumerate(b):
+    print(i,i[0],i[1], end=' ')
+print()
+
+@
+# tuple is constant version of list
+# The way of using tuple is same with the way of using list
+# The only difference with list is that we can't change elements inside of tuple
+t = (1,2,3)
+# This makes error
+t[0]=99
+print(t)
+
+
+# We don't use tuple too much compared to list
+# The most used tuple case are 2
+# 1. When you pass argument into method's parameter
+# 1. When you return return value from method
+
+
+@
+t1, t2 = 1, 2
+print(t1, t2)
+# output:
+# 1 2
+
+# t3 takes 1, 2 as tuple data type
+t3 = 1, 2
+print(t3)
+# output:
+# (1, 2)
+
+
+@
+# I can combine enumerate() and tuple
+b = [1,2,3]
+for i, v in enumerate(b):
+    print(i, v)
+
+@
+a = range(0,10,2)
+print(a)
+# output:
+# range(0,10,2)
+
+a = list(range(0,10,2))
+print(a)
+# output:
+# [0,2,4,6,8]
+
+
+@
+a = list(range(0,10,2))
+b = a
+a[0] = 99
+print(a)
+# output:
+# [99,2,4,6,8]
+print(b)
+# output:
+# [99,2,4,6,8]
+
+# We can determine a and b use same object
+# This is shallow copy
+# This is default way
+# This is called "call by reference"
+
+@
+a = list(range(0,10,2))
+b = a.copy()
+a[0] = 99
+print(a)
+# output:
+# [99,2,4,6,8]
+print(b)
+# output:
+# [0,2,4,6,8]
+
+# We can determine a and b use different object
+# This is deep copy
+
+@
+a = [99,2,4,6,8]
+print(a[0])
+# output:
+# 99
+print(a[-1], a[len(a)-1])
+# output:
+# 8
+print(a[-2])
+# output:
+# 6
+print(-len(a))
+# output:
+# 99
+   
+      </xmp>
+   </BODY>
+</HTML>
