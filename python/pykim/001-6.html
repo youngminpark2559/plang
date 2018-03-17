@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+001-5. Creating function<br/>
+<xmp>
+@Chapter
+001-6. Regular expression
+
+@
+# Regular expression does only 2 task(finding and replacing)
+
+@
+# "." means one character
+# If I want to find 3 characters, I use "..."
+
+@
+# [] means finding "one character" inside of target source text
+# With [abc]d, regular expression finds "ad", "bd", "cd"
+
+# It's bothering to manually write each character
+# for continuous numbers or continuous alphabets,
+# we can use range syntax by using "-"
+# For example, [a-z] finds one character from a to z in text
+# and [1-9] finds one character from 1 to 9 in text
+
+@
+# [^] finds one character
+# (which is not included by character which is included inside of[]) in text
+# For example, [^abc]d doesn't find ad, bd, cd, 
+# and if ed, fd in text, [^abc]d chooses ed, fe
+
+# [^a-z] finds all characters (which are not lowercase alphabet) in text
+
+@
+# ^ symbol (outside of []) finds the first of character or line of sentence
+# This is rarely used
+
+@
+# $ symbol finds the last of character or line of sentence
+# This is rarely used
+
+@
+# Designating quantity by regular expression
+
+@
+# "?" affects one character which is located in front of "?"
+# Later, we will use [] in front of "?" to desinate range in front of "?"
+# "?" means occurring of 0 time or 1 time
+# For example, colou?r finds color and colour
+
+
+@
+# "*" affects one character which is located in front of "*"
+# Later, we will use [] in front of "*" to desinate range in front of "*"
+# "*" means occurring of all times over 0 time
+# For example, ab*c finds ac, abc, abbc, abbbc
+
+@
+# "+" affects one character which is located in front of "+"
+# Later, we will use [] in front of "+" to desinate range in front of "+"
+# "+" means occurring of all times over 1 time
+# For example, ab+c finds abc, abbc, abbbc
+
+@
+# We can grab stock market site
+# by using above regular expression symbol finding patterns in text
+# So, we can predict future change of stock by using past data with regular expression
+   
+      </xmp>
+   </BODY>
+</HTML>
