@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+035-003. using closure<br/>
+<xmp>
+@
+def calc():
+    a = 3
+    b = 5
+    def mul_add(x):
+        return a * x + b
+    return mul_add
+ 
+c = calc()
+print(c(1), c(2), c(3), c(4), c(5))
+# output:
+# 8 11 14 17 20
+
+@
+def calc():
+    a = 3
+    b = 5
+    def mul_add(x):
+        return a * x + b
+    # After you created mul_add(),
+    # you can return this mul_add()
+    # When you return method, you don't append parenthesis next to name of method
+    return mul_add
+
+@
+# Let's use closure methodology
+# Since calc() returns mul_add(), variable c is assigned to by mul_add()
+# Then, you can invoke c with passing argument, then you can see return value
+c = calc()
+print(c(1), c(2), c(3), c(4), c(5))
+# output:
+# 8 11 14 17 20
+
+# Let's think
+# calc() is terminated its scope
+# But we can use local variable a and b of calc()
+
+# Closure means method which is stored in c
+# Closure means method(c) which uses preserved environment around method c(local variable a and b of calc(), code, etc) when we invoke that method(c)
+
+@
+# Like above explanation, we can store flow of program into variable
+# Especially, we use closure when we want to hide internal data
+
+@
+# Closure can be made as lambda
+
+def calc():
+    a = 3
+    b = 5
+    # We return lambda expression rather than method
+    return lambda x: a * x + b
+ 
+c = calc()
+print(c(1), c(2), c(3), c(4), c(5))
+# output:
+# 8 11 14 17 20
+
+# You can use closure more easily by using lambda
+
+# Don't confuse with lambda and closure
+Lambda is anonymous method which doesn't have method name
+# Closure is method which keeps environment wrapping that method, and then, that method uses environment when it's invoked
+
+
+@
+# If you want to change local variable of closure,
+# you can use nonlocal keyword
+
+@
+다음은 a * x + b의 결과를 함수 calc의 지역 변수 total에 누적합니다.
+
+def calc():
+    a = 3
+    b = 5
+    total = 0
+    # This method will become closure
+    def mul_add(x):
+        # total local variable of mul_add() closure will be used
+        # as local variable of calc()
+        nonlocal total
+        total = total + a * x + b
+        print(total)
+    return mul_add
+
+# I make closure and assign it into c
+c = calc()
+c(1)
+c(2)
+c(3)
+# output:
+# 8
+# 19
+# 33
+   
+      </xmp>
+   </BODY>
+</HTML>
