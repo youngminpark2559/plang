@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+001-7. Applying regular expression<br/>
+<xmp>
+@
+# You can practice regular expression on site of regex crossword
+
+# You should satisfy both left notation and upper notation
+# | means "or"
+# For example, to satisfy "A|Z" and "A|B", answer is "A"
+
+#      A|B
+# A|Z  "A"
+
+
+#       [ABC]
+# [BDF]  "B"
+
+
+#       [^AB]  
+# [ABC]  "C"
+
+
+#      A*
+# A   "A"
+# AB* "A" 
+
+#      A?B?
+# A|C  "A"
+# B    "B"
+
+#       A+
+# A|B  "A"
+# A|Z  "A"
+
+# Parenthesis and \ is a pair
+# Using each one separately is useless
+# Character behind "\" means index parenthesis
+# I can use parenthesis up to 9 ones
+# When I reuse parenthesis which is used before, I specify by index number
+#      (A)\1
+# A|B   "A"
+# A|B   "A"
+
+
+# A(2,) means over 2 times (whose syntax is rarely used)
+# A(1) means 1 time (whose syntax is rarely used)
+#        A(2,)
+# A(1)   "A"
+# B|A    "A"
+
+
+#             [^SPEAK]+  EP|IP|EF
+# HE|LL|O+        H       E
+# [PLEASE]+       L       P
+
+
+# Day_01_05_re.py
+# Module for regular expression is not involved in basic module of Python
+# So we need to import "re" module to use regular expression
+import re
+
+# Search "3412 bob 123" on web to grab phone number data
+# Click "LinuxFocus" link
+
+db = '''3412    Bob 123
+3834  Jonny 333
+1248   Kate 634
+1423   Tony 567
+2567  Peter 435
+3567  Alice 535
+1548  Kerry 534'''
+
+# db = '3412    Bob 123\n' \
+#      '3834  Jonny 333\n' \
+#      '1248   Kate 634'
+
+print(db)
+
+# We will talk about ''' ''' later
+# We will talk about raw sequence of characters later
+
+# Some examples of special character, which are used in Python:
+# \n, \t, \a
+
+# We can use following notation "re.findall(r'', db)"" as template
+# The only thing we should do is to write patterns inside of ' ' by using regular expression
+
+ns = re.findall(r'[0-9]', db)
+print(ns)
+# output:
+# ['3', '4', '1', '2', '1', '2', '3', '3', '8', '3', '4', '3', '3', '3', '1', '2', '4', '8', '6', '3', '4', '1', '4', '2', '3', '5', '6', '7', '2', '5', '6', '7', '4', '3', '5', '3', '5', '6', '7', '5', '3', '5', '1', '5', '4', '8', '5', '3', '4']
+
+ns = re.findall(r'[0-9]+', db)
+print(ns)
+# output:
+# ['3412', '123', '3834', '333', '1248', '634', '1423', '567', '2567', '435', '3567', '535', '1548', '534']
+
+# Quize
+# Find only name
+# Following code is what beginner generally creates
+# But this one has potential bug
+# See ascii code
+# You can see there are some characters
+# between uppercase and lowercase of alphabet
+# names = re.findall(r'[A-z]+', db)
+# For example, if data is 
+# db = '''3412    [[[Bob 123
+# 3834  Jonny 333
+# 1248   Kate 634
+# 1423   Tony 567
+# 2567  Peter 435
+# 3567  Alice 535
+# 1548  Kerry 534'''
+# [[[ is also searched
+
+# Recommended one is following
+names = re.findall(r'[A-Za-z]+', db)
+Following one means "one uppercase"+"one lowercase affected by +"
+# In other words, I find name which starts with uppercase and ends with lowercase
+names = re.findall(r'[A-Z][a-z]+', db)
+print(names)
+
+# Quiz
+# Find all names which start with T
+
+print(re.findall(r'T[a-z]+', db))
+# Find all names which don't start with T
+# Following has potential bug because it shows ony from Tony
+# So, not staring with T and matched with ony, which we shouldn't find
+# print(re.findall(r'[^T][a-z]+', db))
+# output:
+# ['Bob', 'Jonny', 'Kate', 'ony', 'Peter', 'Alice', 'Kerry']
+# print(re.findall(r'[^t][a-z]+', db))
+# output: show name which starts with T
+# ['Bob', 'Jonny', 'Kate', 'Tony', 'Peter', 'Alice', 'Kerry']
+
+# Following is recommended one
+print(re.findall(r'[A-SU-Z][a-z]+', db))
+   
+      </xmp>
+   </BODY>
+</HTML>
