@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+002-1. Controlling statements<br/>
+<xmp>
+@
+# Controlling statement
+#     Conditional statement
+#         if, if else, else if, elif
+#         switch(which Python doesn't have)
+
+#     Iteratation statement
+#         for
+#         do while
+#         while
+#         foreach
+
+#     Jump statement
+#         continue
+#         break     
+#         return
+#         yield
+#         throw
+
+@        
+ns = re.findall(r'[0-9]+', db)
+# We call r'' as raw string
+# We need to designate "string for regular expression"
+# not them to conflict other Python string
+
+
+db = '''
+3412    Bob 123
+3834  Jonny 333
+1248   Kate 634
+1423   Tony 567
+2567  Peter 435
+3567  Alice 535
+1548  Kerry 534
+'''
+# output:
+# whitespace
+# 3412    Bob 123
+# 3834  Jonny 333
+# 1248   Kate 634
+# 1423   Tony 567
+# 2567  Peter 435
+# 3567  Alice 535
+# 1548  Kerry 534
+# whitespace
+
+
+db = '''3412    Bob 123
+3834  Jonny 333
+1248   Kate 634
+1423   Tony 567
+2567  Peter 435
+3567  Alice 535
+1548  Kerry 534'''
+
+# output:
+# 3412    Bob 123
+# 3834  Jonny 333
+# 1248   Kate 634
+# 1423   Tony 567
+# 2567  Peter 435
+# 3567  Alice 535
+# 1548  Kerry 534
+
+db = '''3412    Bob 123
+        3834  Jonny 333
+        1248   Kate 634
+        1423   Tony 567
+        2567  Peter 435
+        3567  Alice 535
+        1548  Kerry 534'''
+# output:
+# 3412    Bob 123
+#         3834  Jonny 333
+#         1248   Kate 634
+#         1423   Tony 567
+#         2567  Peter 435
+#         3567  Alice 535
+#         1548  Kerry 534
+
+db = "3412    Bob 123"
+     "3834  Jonny 333"
+     "1248   Kate 634"
+     "1423   Tony 567"
+     "2567  Peter 435"
+     "3567  Alice 535"
+     "1548  Kerry 534"
+
+# The followings are not assigned into variable db
+# "3834  Jonny 333"
+# "1248   Kate 634"
+# "1423   Tony 567"
+# "2567  Peter 435"
+# "3567  Alice 535"
+# "1548  Kerry 534"
+
+
+db = "3412    Bob 123"\
+     "3834  Jonny 333"\
+     "1248   Kate 634"\
+     "1423   Tony 567"\
+     "2567  Peter 435"\
+     "3567  Alice 535"\
+     "1548  Kerry 534"
+# Above one shows in one line
+
+db = "3412    Bob 123\n"\
+     "3834  Jonny 333\n"\
+     "1248   Kate 634\n"\
+     "1423   Tony 567\n"\
+     "2567  Peter 435\n"\
+     "3567  Alice 535\n"\
+     "1548  Kerry 534"
+
+@
+# Day_02_01_loop.py
+
+
+# Quiz
+# You get number ranged from 0 to 3 and assign it to variable count
+# Make logic to say greeting as much as times you get as input number
+# Consider various kinds of code
+
+# Tip: If you're not using some logics, you can make them as body of method
+# because they're not used until you explicitly invoke that method
+
+# Method1
+def not_used_1():
+    count = int(input('count : '))
+
+    if count == 1:
+        print('Good morning!')
+    elif count == 2:
+        print('Good morning!')
+        print('Good morning!')
+    elif count == 3:
+        print('Good morning!')
+        print('Good morning!')
+        print('Good morning!')
+
+
+# Following code is not recommended
+# Suppose we get number 1 then if statement runs 3 times 
+# even if below 2 if statements don't need to be executed
+
+# Multiple if statements can be used
+# when you choose multiple values out of multiple conditions
+
+# So, when you choose one value out of multiple values
+# you'd better use elif
+if count == 1:
+    print('Good morning!')
+if count == 2:
+    print('Good morning!')
+    print('Good morning!')
+if count == 3:
+    print('Good morning!')
+    print('Good morning!')
+    print('Good morning!')
+
+
+# Method2
+# I will test with explicitly declared constant
+count = 3
+if count > 0:
+    print('Good morning!') 
+    # count = count -1
+    count -= 1
+if count > 0:
+    print('Good morning!')
+    count -= 1
+if count > 0:
+    print('Good morning!')
+    count -= 1
+
+# Method3
+count = 3
+i = 0
+if i < count:
+    print('Good morning!')
+    i += 1
+if i < count:
+    print('Good morning!')
+    i += 1
+if i < count:
+    print('Good morning!')
+    i += 1
+
+
+# Copy and indentedly paste
+# count = 2
+# i = 0
+# if i < count:
+#     print('Good morning!')
+#     i += 1
+#     if i < count:
+#         print('Good morning!')
+#         i += 1
+#         if i < count:
+#             print('Good morning!')
+#             i += 1
+#             if i < count:
+#                 print('Good morning!')
+#                 i += 1
+
+# Refactor above code by using "while"
+    count = 2
+    i = 0
+    # while condition:
+    while i < count:
+        print('Good morning!')
+        i += 1
+
+# Above steps to implement iteration with if, while, etc
+# are most important step in learning programming
+
+
+@
+# To use iteration statement well, you should find rule from source
+
+# If we say 1 3 5 7 9 as odd number, it's not good answer
+# In programming, answer should be specific
+# 1 3 5 7 9     1, 9, 2     starting number 1 , ending number 9, increment or decrement step
+# 0 1 2 3 4     0, 4, 1
+# 5 4 3 2 1     5, 1, -1
+# You can process over 80 percent of source by above rules
+# Remainders are difficult jobs to deal with
+
+# Display "hello" 5 times
+    i = 1                   # starting
+    while i <= 9:           # ending
+        print('hello')
+        i += 2              # increment and decrement
+
+# Display "hello" 5 times
+# Recommended one
+    i = 0                   # starting
+    while i <= 4:           # ending
+        print('hello')
+        # Python doesn't use i++
+        i += 1              # increment and decrement
+
+# Display "hello" 5 times
+    i = 5                   # 시작
+    while i >= 1:           # 종료
+        print('hello')
+        i -= 1              # 증감
+
+# Quiz1
+# Make function which prints numbers from 0 to 99
+# Quiz2
+# Make function which prints 10 numbers in one line from 0 to 99 0~99
+
+# When you use print(), if elements are shown in 100 lines, it's bothering to see at once
+# If you want to all elements in one line, you can use end=' ' as 2nd argument
+# print('hello', end=' ')
+# output:
+# hello hello ... hello
+
+# staring 0, ending 99, inc and dec 1
+def show100():      
+    # staring 0
+    i = 0
+    # ending 99
+    # 100 is better because you're printing 100 numbers
+    while i < 100:
+        print(i, end=' ')
+        # inc and dec 1
+        i += 1
+
+
+
+
+def show100With10InOneLine():      
+    # staring 0
+    i = 0
+    # ending 99
+    # 100 is better because you're printing 100 numbers
+    while i < 100:
+        print(i, end=' ')
+        # You make new line, one time per 10
+        if i%10 == 9:
+            print()
+        # inc and dec 1
+        i += 1
+
+
+
+
+    # Writing i += 1 is not good.
+    # If you write i += 1 
+    # upper part(i becomes variable because it changes in the middle of logic),
+    # you should write i%10 == 0
+    # The meaning that I want to make new line one time per 10 is rather broken
+    # Skilled ones write 
+    # "increment and decrement" lower part(i can be constant because it doesn't change)
+    # i = 0
+    # while i < 100:
+    #     print(i, end=' ')
+    #     i += 1
+    #
+    #     if i%10 == 0:
+    #         print()
+
+# show100With10InOneLine()
+# 0 1 2 3 4 5 6 7 8 9
+# 10 11 12 13 14 15 16 17 18 19
+# 20 21 22 23 24 25 26 27 28 29
+# 30 31 32 33 34 35 36 37 38 39
+# 40 41 42 43 44 45 46 47 48 49
+# 50 51 52 53 54 55 56 57 58 59
+# 60 61 62 63 64 65 66 67 68 69
+# 70 71 72 73 74 75 76 77 78 79
+# 80 81 82 83 84 85 86 87 88 89
+# 90 91 92 93 94 95 96 97 98 99
+
+
+
+# We use for statement for iteratioin than if and while
+# You can use "for" for all cases
+# You can use "while" when "for" doesn't fit well
+
+# Python doesn't have "for int i=0 ; i<=10 ; i++"
+# Python uses range() to make data source and then interates data source by "for"
+# starting(0), ending 9(interation 10 times), increment and decrement(1)
+for i in range(0, 10, 1):   
+    print(i, end=' ')
+# This is for new line
+print()
+
+# I pass 2 arguments into range()
+# starting(0), ending(9), default parameter(1) for increment and decrement
+for i in range(0, 10):      
+    print(i, end=' ')
+print()
+
+# I pass 1 argument into range()
+# This one is much used with specifying the number of iteration
+# default parameter(0) for starting, ending(9), default parameter(1) for increment and decrement
+for i in range(10):         
+    print(i, end=' ')
+print()
+
+# Quiz
+# Make method to print "sum of odd numbers"
+# and "sum of even numbers"
+# out of all numbers under 100 over 1
+# You can use multiple return values
+
+# Method1
+def sumOfOddEven():
+    # I initialize by 0
+    odd, even = 0, 0
+    for i in range(1, 100):
+        # odd  += i
+        if i%2 == 1:    
+        # even += i
+        else:           
+    return odd, even
+s1, s2 = sumOfOddEven()
+print(s1, s1)
+# output:
+# 2500, 2450
+
+# Method2
+def sumOfOddEven():
+    # I initialize by 0
+    odd, even = 0, 0
+    # starting 1, ending 99, inc and dec2
+    for i in range(1, 100, 2):
+        odd += i
+    # starting 2, ending 99, inc and dec2
+    for i in range(2, 100, 2):
+        even += i
+    return odd, even
+
+# Method3
+def sumOfOddEven():
+    # I initialize by 0
+    odd, even = 0, 0
+    # starting 0, ending 99, inc and dec2
+    for i in range(0, 100, 2):
+        even += i
+        odd  += i+1
+    return odd, even
+
+s1, s2 = sumOfOddEven()
+print(s1, s2)
+print('-'*50)
+
+# I use random module
+import random
+# starting, ending, inc and dec
+print(random.randrange(10))
+print(random.randrange(10, 20))
+# Make one random number out of even numbers between 10 and 20
+print(random.randrange(10, 20, 2))
+
+# Random number is much used in sampling
+
+for i in range(5):
+    print(random.randrange(10), end=' ')
+
+# i can be removed because it's not used
+# But it makes error
+for in range(5):
+    print(random.randrange(10), end=' ')    
+
+# But since I still don't need i, I can make meaning of i weak
+# "_" is called "placeholder"
+for _ in range(5):
+    print(random.randrange(10), end=' ')    
+
+
+for _ in range(5):
+    # placeholder is variable or not? Just check it out
+    print(_)
+    # It turns out no error, so it's variable, you can use _ as variable
+    # But you don't need to use _ as variable
+    # _ is used not to use useless variable i
+    print(random.randrange(10), end=' ')    
+
+
+# When you do programming with random value,
+# you can have cases when you don't want created random value to change
+# To fix random value, you can use seed() which is much used
+# But don't put seed() into inside of "for"
+random.seed(1)
+for _ in range(5):
+    print(random.randrange(10), end=' ')
+print()
+
+
+
+# Random number generating method
+# This is used as global variable
+next = 1
+def rand():
+    # If you want to use global variable inside of method, you use global keyword
+    # Even if this syntax doesn't make error but this syntax must not be used
+    global next
+    # Following way to generate random value is called pseudo(fake) random number
+    # Following code generates different random values
+    next = next * 1103515245 + 12345
+    return int((next//65536) % 32768)
+
+# Quiz
+# Make method which can find the largest number out of 10 random numbers
+# which are all smaller than 100
+
+def maxNumber():
+    # Since I should find the largest number,
+    # I should create variable space to hold found number
+    # with initializing by 0
+    m = 0
+    # Since quize specified 10 numbers, we can loop 10 times
+    for _ in range(10):
+        # I generate 100 random numbers
+        n = random.randrange(100)
+        print(n, end=' ')
+        # And I compare generated random number to m
+        if m < n:
+            m = n
+    return m
+
+# I refactor this method to make it general
+def maxNumber():
+    m = -random.randrange(100)
+    print(m, end=' ')
+    for _ in range(10-1):
+        n = -random.randrange(100)
+        print(n, end=' ')
+        if m < n:
+            m = n
+    return m
+
+print(maxNumber())
+print('-'*50)
+
+s1, s2 = sumOfOddEven()
+print(s1, s2)
+
+sum = sumOfOddEven()
+print(sum)
+   
+      </xmp>
+   </BODY>
+</HTML>
