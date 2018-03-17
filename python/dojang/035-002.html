@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+035-002. creating method inside of method, global keyword, nonlocal keyword<br/>
+<xmp>
+@
+def print_hello():
+    hello = 'Hello, world!'
+    def print_message():
+        print(hello)
+    # I invoke print_message() inside of print_hello()
+    print_message()
+ 
+print_hello()
+# output:
+# Hello, world!
+
+@
+# Inner method print_message() can use local variable of outter method print_hello()
+
+def print_hello():
+    hello = 'Hello, world!'
+    def print_message():
+        # This one uses local variable of outter method print_hello()
+        print(hello)
+
+# Local variable of outter method can be access any method which is created inside of outter method
+
+@
+# Let's try to change value of local variable of outter method inside of inner method
+
+def calc():
+    # This is local variable of calc()
+    total = 0
+    def add(a, b):
+        # This code generates error
+        # because uninitialized local variable total is tried to use
+        total = total + a + b
+ 
+    add(10, 20)
+    add(30, 40)
+    print(total)
+ 
+calc()
+# output:
+# Traceback (most recent call last):
+#   File "C:₩project₩function_local_error.py", line 10, in <module>
+#     calc()
+#   File "C:₩project₩function_local_error.py", line 6, in calc
+#     add(10, 20)
+#   File "C:₩project₩function_local_error.py", line 4, in add
+#     total = total + a + b
+# UnboundLocalError: local variable 'total' referenced before assignment
+
+# Error message means "local variable total of add() is referenced before it's initialized"
+# In Python, if you create variable inside of method, that variable must become local variable
+# In this case, we didn't initialize variable total so we're not having any local variable
+
+@
+# If you want to change local variable of outter method,
+# you can use "nonlocal" keyword on local variable (which you want to change) of outter method
+
+def calc():
+    total = 0
+    def add(a, b):
+        # I declare I will use local variable total of outter method
+        nonlocal total
+        total = total + a + b
+ 
+    add(10, 20)
+    add(30, 40)
+    print(total)
+ 
+calc()
+# output:
+# 100
+
+@
+# Meaning of "nonlocal" is it's not local variable of current inner method, but I use local variable as local variable of outter method
+
+@
+def calc(total):
+    def add(a, b):
+        # Since parameter is also local variable,
+        # you can apply nonlocal on parameter
+        nonlocal total
+        total = total + a + b
+
+@
+# When nonlocal finds local variable outside of current inner method,
+# it finds from firstly nearest method
+
+def A():
+    x = 10
+    y = 100
+    def B():
+        x = 20
+        def C():
+            nonlocal x
+            nonlocal y
+            x = x + 30
+            y = y + 300
+            print(x)
+            print(y)
+        C()
+    B()
+ 
+A()
+# output:
+# 50
+# 400
+
+# When you use nonlocal on x inside of C method,
+# it finds local variable x = 20 inside of B method
+
+@
+# No matter how deep steps methods have,
+# if you use global keyword,
+# methods find only global variable, 
+# with passing local variable inside of outter method
+
+x = 1
+def A():
+    x = 10
+    def B():
+        x = 20
+        def C():
+            global x
+            x = x + 30
+            print(x)
+        C()
+    B()
+ 
+A()
+# output:
+# 31
+
+@
+# Even if Python provides global keyword,
+# when you pass value and accept value,
+# it's recommended to use parameter and return value
+
+# Especially, when codes become complex, with global variable, you suffer difficulty of figuring out where variable is changed
+
+# So, it's recommended not to use global variable
+   
+      </xmp>
+   </BODY>
+</HTML>
