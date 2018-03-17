@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+002-6. Parsing weather data from meteorological site<br/>
+<xmp>
+@
+f = open('Data/kma.csv', 'w', encoding='utf-8')
+
+# When you want to open file as csv
+# f = open('Data/kma.csv', 'w')
+# f = open('Data/kma.csv', 'w', encoding='cp949')
+
+# ---------------------------- #
+
+@
+# Day_02_03_kma.py
+import requests
+import re
+
+url = 'http://www.xxx.com'
+recvd = requests(url)
+print(recvd)
+# output:
+# <Response [200]>
+# This is data what server sent to us
+print(recvd.text)
+
+@
+# press ctrl u to see page source
+# Browser interpretes all page source from top to bottom
+# If browser runs into image source, it brings image and shows image to user
+# Browser is quite big program
+# Browser may be second largest program behind operating system
+
+
+@
+# In kma, go to service, go to rss
+
+url = 'http://www.kma.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=108'
+recvd = requests.get(url)
+print(recvd)
+print(recvd.text)
+
+# Find all data(.+) between <province> and </province>
+# String with <province> and words...... ending with </province>
+# temp = re.findall(r'<province>.+</province>', recvd.text)
+# print(temp)
+# print(len(temp))
+
+# Quiz
+# Bring entire location data
+
+re.findall([r'0-9]+', db)
+# 3412
+# When it found 3, it satisfied pattern, but finding didn't stop
+# 34, 341, 3412, and it runs into non number data,
+# so, it stopped at 3412
+# So, default option is to find longest satisfying pattern(3412)
+# This method(.+) is called "greedy way"
+# So, what we have to do is to change "greedy way" to "non-greedy way" by using ".+?"
+
+# In <location wl_ver="3">...</location>, ... means 3 characters
+locations = re.findall(r'<location wl_ver="3">.+?</location>',
+                       recvd.text,
+                       # When pattern what I want to find is located in multiple lines,
+                       # I can use re.DOTALL option
+                       # Actually, this makes new line character as ordinal character
+                       re.DOTALL)
+# It's recommended to check the number of data first
+# If it's right, then, you can see detailed data
+# print(len(locations))
+
+# To display 24 locations
+for loc in locations:
+    # print(loc)
+
+    # Quiz
+    # Find province and print province
+    # Find city and print city
+
+    # We find from already found data loc in "for" loop
+    # If I use parenthesis on .+, Python prints only wrapped data
+    # ['<province>전라북도</province>'] -> ['전라북도'] 
+    prov = re.findall(r'<province>(.+)</province>', loc)
+    city = re.findall(r'<city>(.+)</city>', loc)
+    # print(prov[0], prov)
+    # output:
+    # ['전라북도'] -> 전라북도
+
+    # print(city[0])
+    # 제주도 ['제주도'] 서귀포
+
+    # # items = re.findall(r'<mode>(.+?)</mode>.+?<tmEf>(.+?)</tmEf>.+?<wf>(.+?)</wf>',
+    # #                    loc, re.DOTALL)
+    # items = re.findall(r'<mode>(.+?)<.+?>.+?<.+?>(.+?)<.+?>.+?<.+?>(.+?)<.+?>',
+    #                    loc, re.DOTALL)
+    # # print(items)
+    # # print(len(items))
+    #
+    # # for item in items:
+    # #     print(item)
+    #
+    # for mode, tmEf, wf in items:
+    #     print(mode, tmEf, wf)
+
+
+    # Find "data"
+    data = re.findall(r'<data>(.+?)</data>', loc, re.DOTALL)
+    # print(data)
+    # print(len(data))
+    # output: 13
+
+    # Why did we use "for" on prov and city?
+    # But why should we use "for" on data?
+    # Because data is composed of the following format
+    # <mode>A01</mode>', datum)
+    # <tmEf>2017-01-13 00:00</tmEf>', datum)
+    # <wf>Cloudy</wf>', datum)
+    # <tmn>4</tmn>', datum)
+    # <tmx>10</tmx>', datum)
+    # <reliability>Ordinal</reliability>
+    # We should extract them all by using "for"
+    for datum in data:
+        # print(datum)
+        # Quiz
+        # Find all data along with "mode"
+        mode = re.findall(r'<mode>(.+?)</mode>', datum)
+        tmEf = re.findall(r'<tmEf>(.+?)</tmEf>', datum)
+        wf   = re.findall(r'<wf>(.+?)</wf>', datum)
+        tmn  = re.findall(r'<tmn>(.+?)</tmn>', datum)
+        tmx  = re.findall(r'<tmx>(.+?)</tmx>', datum)
+        reli = re.findall(r'<reliability>(.+?)</reliability>', datum)
+        # print(prov[0], city[0], mode[0], tmEf[0], wf[0], tmn[0], tmx[0], reli[0])
+        # We assign data into variable row
+        # 'Format_which_I_want_to_specify'.format(data_which_I_want_to_put_in)
+        row = '{},{},{},{},{},{},{},{}'.format(prov[0], city[0], mode[0], tmEf[0], wf[0], tmn[0],tmx[0], reli[0])
+        print(row)
+
+        f.write(row)
+        f.write('\n')
+
+        # The way that I find 3 patterns(mode, tmEf, wf) at once
+        # items = re.findall(r'<mode>(.+?)</mode>.+<tmEf>(.+?)</tmEf>.+<wf>(.+?)</wf>', datum,re.DOTALL)
+        # print(items[0])
+        # [{'A01', '2017-01-13 00:00', '구름많음'}]
+        # print(items[0][0], items[0][1], items[0][2])
+
+        # t = items[0]
+        # print(t[0], t[1], t[2])
+
+    f.close()
+   
+      </xmp>
+   </BODY>
+</HTML>
