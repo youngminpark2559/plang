@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+048-007. using metaclass<br/>
+<xmp>
+@
+# Metaclass is class which creates class
+
+# In metaclass, there are 2 kind
+# First one is way of dynamically creating class by using "type"
+# Second one is way of implementing metaclass by inheriting "type"
+
+@
+# We make class by specifying "name of class as string", "base class as tuple", "property and method(which can be denoted as lambda expression) as dictionary" inside of type
+
+# type can be used when you find type of object(class)
+# type can be used when you create class
+
+class = type('name of class', tuple_of_base_class, dictionary_for_property_and_method)
+
+# I create class "Hello" by using "type"
+Hello = type('Hello', (), {})
+print(Hello)
+# output:
+# <class '__main__.Hello'>
+
+# I create "Hello instance" by using class "Hello"
+h = Hello()
+print(h)
+# output:
+# <__main__.Hello object at 0x029B4750>
+
+
+@
+# type('Hello', (), {}) creates class named Hello, whose class doesn't have base class, whose class doesn't have property and method
+# You can create instance from this class
+
+@
+# You can put property and method into class
+# You can use inheritance
+
+# Let's try make class which has "property and method", "base class"
+
+# The following code creates class which inherits "list", which has desc property and replace()
+
+# First, I need to define replace() which will be put into class
+def replace(self, old, new):
+    while old in self:
+        self[self.index(old)] = new
+ 
+# I create AdvancedList class
+# This class inherits list
+# This class has property desc and replace()
+AdvancedList = type('AdvancedList', (list, ), { 'desc': 'upgraded list', 'replace': replace })
+
+# I give list to AdvancedList instance
+x = AdvancedList([1, 2, 3, 1, 2, 3, 1, 2, 3])
+# I replace 1 with 100 in list which AdvancedList instance has
+x.replace(1, 100)
+print(x)
+# output:        
+# [100, 2, 3, 100, 2, 3, 100, 2, 3]
+print(x.desc)    
+# upgraded list
+
+@
+# Let's talk about __new__() in metaclass
+# If class inherits "type", it becomes metaclass
+# You can add property and method by using __new__() into class which will be newly created
+
+class name_of_metaclass(type):
+    def __new__(metacls, name, bases, namespace):
+        code
+
+@
+# MakeCalc class inherits "type", so MakeCalc class becomes metaclass
+class MakeCalc(type):
+    # This __new__() is invoked when you newly create class 
+    def __new__(metacls, name, bases, namespace):
+        # This adds value of desc attribute into newly created class
+        namespace['desc'] = 'calculating class'
+        # This add method as lambda expression into newly created class
+        namespace['add'] = lambda self, a, b: a + b
+        # This invokes __new__() of "base class type"
+        return type.__new__(metacls, name, bases, namespace)
+
+# I create Calc class by metaclass MakeCalc
+Calc = MakeCalc('Calc', (), {})
+# I create instance c of Calc class
+c = Calc()
+# I print value of desc attribute from Calc instance c
+print(c.desc)
+# I invoke method which is registered onto attribute of add
+print(c.add(1, 2))
+
+@
+# __new__() is invoked when you create new class from metaclass as if you do "Calc = MakeCalc('Calc', (), {})"
+# Therefore, you can add value of attribute and method onto attribute by using __new__() without using "Calc = MakeCalc('Calc', (), {})" syntanx
+
+# In this case, we tried to add method as lambda expression "lambda self, a, b: a + b"
+# But note that, since we should designate 1st parameter as "self", we also designate 1st argument as "self" in lambda expression
+
+@
+# Metaclass is mainly used when you control action of class
+
+
+@
+# The following is the way of singleton which always creates only one instance from class
+
+# Singleton class inherits "type", so Singleton class becomes metaclass
+class Singleton(type):
+    # __instances is attribute on which you will store instance of Singleton class
+    __instances = {}
+    # This is __call__() which is invoked when you create instance from Singleton class
+    def __call__(cls, *args, **kwargs):
+        # This code checks if you already created instace from Singleton class
+        if cls not in cls.__instances:
+            # If you didn't create instance yet from Singleton class,
+            # this code create instance and store that instance onto "__instances dictionary"
+            cls.__instances[cls] = super().__call__(*args, **kwargs)
+        # If you already created instance,
+        # this returns created instance which is stored onto "__instances dictionary"                This returns newly created instance                           
+        return cls.__instances[cls]
+
+# I create Hello class and I configure metaclass as Singleton class
+class Hello(metaclass=Singleton):
+    # I do nothing here
+    pass
+ 
+# I create instance a from Hello class
+a = Hello()     # 클래스 Hello로 인스턴스 a 생성
+# I create instance b from Hello class
+b = Hello()     
+# I check if instance a equals to instance b
+print(a is b)
+# output:
+# true
+
+
+@
+# 1. You create Singleton metaclass which inherits "type"
+# 1. You create Hello class with configuring "class Hello(metaclass=Singleton):"
+# 1 Metaclass Singleton can control Hello class
+
+@
+# __call__() is generally invoked when you invoke instance by using parenthesis
+# However, if you implement __call__() inside of metaclass which inherits "type", when you create instance from class(Hello class) which uses metaclass(Singleton class), __call__() is invoked (when you invoke class by parenthesis)
+
+
+# In this case, when you create instance by using "Hello()", __call__() is invoked in Singleton class
+# And in __call__(), it checks if instance already is created or not
+
+
+@
+# Famous example of metaclass is abc.ABCMeta which is explained in "038-006. using abstract class"
+# Abstract class which uses abc.ABCMeta should have only list of method
+# And derived class from abstract class should implement body of method from list of method
+# In other words, metaclass(abc.ABCMeta) controls action of abstract class and its derived class
+   
+      </xmp>
+   </BODY>
+</HTML>
