@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+002-4. List<br/>
+<xmp>
+@
+# So far, we stored one value into one variable
+# Now, we will store multiple values into one variable
+# which is called largely collection
+
+@
+# With keyboard, we can make 4 kinds of brace
+# Collection
+#     list : []
+#     tuple : ()
+#     set or dictionary : {}
+#     we dont use this : <>
+
+a = [1,3,5]
+print(a)
+# output: [1,3,5]
+
+# Python doesn't have concept of array 
+# which is one of data structure 
+# which can be accesed by index
+
+# Instead of array, in Python, we use list as if array
+
+a = [1,3,5]
+print(a[0],a[1],a[2])
+# output: 1,3,5
+
+a[0]=99
+print(a)
+# output:
+# [99,3,5]
+
+@
+# Combining iteration statement and list
+for i in range(3):
+    print(a[i])
+
+# But don't write hard coded number 3
+for i in range(len(a)):
+    print(a[i])
+
+@
+# Quiz
+# Make method which retures list
+# which is composed of randomly generated 10 numbers
+# which are all less than 100
+
+def makeRandoms():
+    # We should return list containing 10 numbers,
+    # so, it's not bad choice declaring list initialized by 0
+    # a = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    a = [0]*10
+    # Parameters of range() :
+    # 1: starting(default 0)
+    # 2: ending(default)
+    # 3: increment and decrement(default 1)
+    for i in range(10):
+        a[i] = random.randrange(100)
+    return a
+
+random.seed(19)
+b = makeRandoms()
+print(b)
+
+# I refactor above code
+def makeRandoms():
+    # We can start with empty list
+    # and then we use append() to increase length of list
+    a = []
+    # We had to use i from above code
+    # but we don't need i anymore because we're using empty list
+    # So, we replace i with placeholder
+    # for i in range(10):
+    for _ in range(10):
+        a.append(random.randrange(100))
+    return a
+
+@   
+# We can use insert() rather than append()
+# to add value between values
+
+
+@
+# Quiz
+# Make method which returns list
+# whose elements are reversed in its order
+#  0  1   2   3   4 ->   4   3   2   1   0
+
+# First, make structure
+def reverseList(c):
+    for i in range(len(c)):
+        c[i]
+
+
+# Since you should return value,
+# you make empty list a=[] and use append()
+def reverseList(c):
+    a = []
+    for i in range(len(c)):
+        a.append(c[i])
+    return a
+
+# And then, we order "reverse order"
+def reverseList(c):
+    a = []
+    # len(c)-1 means index of last element
+    # -1 is needed because 0 index is needed
+    for i in range(len(c)-1, -1, -1):
+        a.append(c[i])
+    # Actually reverse order
+    for i in range(len(a)):
+        c[i]=a[i]
+    return a
+
+
+# Other way by using swap
+def reverseList(c):
+    for i in range(len(c)//2):
+        # swap ith value from left and ith value from right
+        c[i], c[len(c)-1-i] = c[len(c)-1-i], c[i]
+
+   
+      </xmp>
+   </BODY>
+</HTML>
