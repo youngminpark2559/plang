@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+032-001. positinal argument, variable argument, *args, unpacking list and tuple<br/>
+<xmp>
+@
+Positional argument mean way of putting arguments into method in order
+In other words, positions of argument are settled
+
+print(10, 20, 30)
+# 10 20 30
+# Since we pass 10,20,30 into pass(), displaying is also 10 20 30
+
+@
+def print_numbers(a, b, c):
+    print(a)
+    print(b)
+    print(c)
+
+# print_numbers(10, 20, 30)
+# 10
+# 20
+# 30
+
+# When you pass arguments in order, you can use list or tuple
+# To do this, you can use * in front of list or tuple and pass it into method
+x = [10, 20, 30]
+print_numbers(*x)
+# 10
+# 20
+# 30
+
+# You can see displaying 10 20 30 even if you only pass list containing 10, 20, 30
+# It means if you use * in front of list or tuple, it's unpacked,
+# then it works like print_numbers(10, 20, 30)
+
+# It literally means we unpack list or tuple
+
+@
+# You can also use * in front of list instead variable containing list
+print_numbers(*[10, 20, 30])
+# 10
+# 20
+# 30
+
+@
+# What you should note is that the number of arguments of method and the number of elements of list(tuple) should be same
+# If the numbers are not same, you can't invoke method
+
+# print_numbers() requires 3 argument
+# So, this code makes error
+print_numbers(*[10, 20])
+# Traceback (most recent call last):
+#   File "<pyshell#16>", line 1, in <module>
+#     print_numbers(*[10, 20])
+# TypeError: print_numbers() missing 1 required positional argument: 'c'
+
+@
+# Funtionalities of positional argument and unpacking list(tuple) are used to make variable argument which is not determined its number of argument
+
+# That is, you can pass one argument, 10 arguments, or non argument into same method
+
+@
+# You can make variable argument by using * in front of argument of method
+def print_numbers(*args):
+    for arg in args:
+        print(arg)
+
+# You can name any name but customarily we use args shrinked from arguments
+
+@
+print_numbers(10)
+# 10
+# I pass multiple arguments manually into method
+print_numbers(10, 20, 30, 40)
+# 10
+# 20
+# 30
+# 40
+
+x = [10]
+print_numbers(*x)
+# 10
+# I pass list containing multiple arguments which will be automatically unpacked into method
+y = [10, 20, 30, 40]
+print_numbers(*y)
+# 10
+# 20
+# 30
+# 40
+
+
+@
+Tip
+# You can use positional argument and variable argument at the same time
+# You first designame positional argument, then, you can designate variable argument
+def print_numbers(a, *args):
+    print(a)
+    print(args)
+print_numbers(1)
+# 1
+# ()
+print_numbers(1, 10, 20)
+# 1
+# (10, 20)
+print_numbers(*[10, 20, 30])
+# 10
+# (20, 30)
+
+# Note that *args shouldn't be located in front of positional argument
+# In order of argument, *args should be located in last position
+
+   
+      </xmp>
+   </BODY>
+</HTML>
