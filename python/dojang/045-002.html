@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+045-002. regular expression patter for range, simplified notation(\d), special characters(\), whitespace(\s), compile()<br/>
+<xmp>
+@
+# We will judge if string is composed of numbers
+# For that, we use range of number into squared bracket and we append * or + at the end of ]
+# Range of number can be denoted as "0-9"
+# * means judging if number is contained over 0 times
+# + means judging if number is contained over 1 times
+
+# Since there is number ranged from 0 to 9 over 0 times in '1234', patter of '[0-9]*' is matched with '1234'
+re.match('[0-9]*', '1234')
+# <_sre.SRE_Match object; span=(0, 4), match='1234'>
+# Since there is number ranged from 0 to 9 over 1 times in '1234', patter of '[0-9]*' is matched with '1234'
+re.match('[0-9]+', '1234')
+# <_sre.SRE_Match object; span=(0, 4), match='1234'>
+# Since there isn't number ranged from 0 to 9 over 1 times in '1234', patter of '[0-9]*' isn't matched with '1234'
+re.match('[0-9]+', 'abcd')
+
+@
+# How to use difference between * and +
+
+# Since there is 'a' over 0 times in 'b', patter of 'a*b' is matched with 'b'
+re.match('a*b', 'b')
+# <_sre.SRE_Match object; span=(0, 1), match='b'>
+# Since there isn't 'a' over 1 times in 'b', patter of 'a+b' isn't matched with 'b'
+re.match('a+b', 'b')
+# Since there is 'a' over 0 times in 'aab', patter of 'a*b' is matched with 'aab'
+re.match('a*b', 'aab')
+# <_sre.SRE_Match object; span=(0, 3), match='aab'>
+# Since there is 'a' over 1 times in 'aab', patter of 'a+b' is matched with 'aab'
+re.match('a+b', 'aab')
+# <_sre.SRE_Match object; span=(0, 3), match='aab'>
+
+# 'b' in pattern of "a*b" and "a+b" denotes must-have character in target string to be mathced with pattern 'b' 
+# Since a* should be over 0 times in string to be matched, a* can be matched with 'b'
+# But since a+ should be over 1 times in string to be matched, a+ can't be matched with 'b'
+
+# Patterns of a*b and a+b are matched with 'ab', 'aab', 'aaab'
+
+
+@
+# We use * and + to judge sequence of characters
+# We use ?(0 or 1) and .(1) to judge one character
+
+# There is 0 or 1 character behind "H", pattern 'H?' is matched with 'H'
+re.match('H?', 'H')
+# <_sre.SRE_Match object; span=(0, 1), match='H'>
+# There is 0 or 1 character behind "H", pattern 'H?' is matched with 'Hi'
+re.match('H?', 'Hi')
+# <_sre.SRE_Match object; span=(0, 1), match='H'>
+# There is 1 character behind "H", pattern 'H.' is matched with 'Hi'
+re.match('H.', 'Hi')
+# <_sre.SRE_Match object; span=(0, 2), match='Hi'>
+
+@
+# When you want to find the number of character(number) in target string, you use [range]{quantity}
+# Pattern '[0-9]{3}-[0-9]{4}-[0-9]{4}' is matched with '010-1000-1000'
+re.match('[0-9]{3}-[0-9]{4}-[0-9]{4}', '010-1000-1000')
+# <_sre.SRE_Match object; span=(0, 13), match='010-1000-1000'>
+# Pattern '[0-9]{3}-[0-9]{4}-[0-9]{4}' is not matched with '010-1000-100'
+# See [0-9]{4} and 100
+re.match('[0-9]{3}-[0-9]{4}-[0-9]{4}', '010-1000-100')
+
+@
+# This syntanx [0-9]{3}-[0-9]{4}-[0-9]{4} can be used to designate range of frequency
+# [0-9]{2,3}-[0-9]{3,4}-[0-9]{4}
+# 2 : starting of range
+# 3 : ending of range
+
+# Pattern frequency from 2 to 3, frequency from 3 to 4, 4 is matched with '02-100-1000'
+re.match('[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}', '02-100-1000')
+# <_sre.SRE_Match object; span=(0, 11), match='02-100-1000'>
+
+# Pattern frequency from 2 to 3, frequency from 3 to 4, 4 is not matched with '02-10-1000'
+re.match('[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}', '02-10-1000')
+
+
+@
+# We will talk about range of alphabet
+# Range of alphabet is denoted by a-z and A-Z
+
+@
+# Since there is character from a-z, A-Z, 0-9 over 1 times(+) in 'Hello1234', pattern '[a-zA-Z0-9]+' is matched with 'Hello1234'
+re.match('[a-zA-Z0-9]+', 'Hello1234')
+# <_sre.SRE_Match object; span=(0, 9), match='Hello1234'>
+# Since there is not character from A-Z, 0-9 over 1 times(+) in 'hello', pattern '[A-Z0-9]+' is not matched with 'hello'
+re.match('[A-Z0-9]+', 'hello')
+
+@
+# Pattern for range of character in Korean
+# Since there is character from 가-힣 over 1 times(+) in '홍길동', pattern '[가-힣]+' is matched with '홍길동'
+re.match('[가-힣]+', '홍길동')
+# <_sre.SRE_Match object; span=(0, 3), match='홍길동'>
+
+
+@
+# You can use ^ as "not" or "except"
+
+# Since there is not character from ^A-Z over 1 times(+) in 'Hello', pattern '[^A-Z]+' is not matched with 'Hello'
+re.match('[^A-Z]+', 'Hello')
+# Since there is character from ^A-Z over 1 times(+) in 'hello', pattern '[^A-Z]+' is matched with 'hello'
+re.match('[^A-Z]+', 'hello')
+# <_sre.SRE_Match object; span=(0, 5), match='hello'>
+
+@
+# Don't be confused by '^[A-Z]+' (which denotes starting range) and '[^A-Z]+' (which denotes "not" of range)
+
+# Since there is starting character from A-Z over 1 times(+) in 'Hello', pattern '^[A-Z]+' is matched with 'Hello'
+re.search('^[A-Z]+', 'Hello')
+# <_sre.SRE_Match object; span=(0, 1), match='H'>
+
+@
+# Since there is ending character from 0-9 over 1 times(+) in 'Hello1234', pattern '[0-9]+$' is matched with 'Hello1234'
+re.search('[0-9]+$', 'Hello1234')
+# <_sre.SRE_Match object; span=(5, 9), match='1234'>
+
+@
+# When you want to find special characters(*, +, ?, ., ^, $, (, ) [, ], -, etc), you use \ in front of special characters(*, +, ?, ., ^, $, (, ) [, ], -, etc)
+# You don't need to use \ in front of special characters(*, +, ?, ., ^, $, (, ) [, ], -, etc) in [ ]
+# However, if error happens, you need to use \ in front to special characters in [ ]
+
+# Since there is character from * over 1 times(+) in '1 ** 2', pattern '\*+' is matched with '1 ** 2'
+re.search('\*+', '1 ** 2')
+# <_sre.SRE_Match object; span=(2, 4), match='**'>
+# Since there is character from $, (, ), a-z, A-Z, 0-9 over 1 times(+) in '$(document)', pattern '[$()a-zA-Z0-9]+' is matched with '$(document)'
+re.match('[$()a-zA-Z0-9]+', '$(document)')
+# <_sre.SRE_Match object; span=(0, 11), match='$(document)'>
+
+@
+# When you want to find monotonous number or monotonous character, you can conviniently use \d, \D, \w, \W
+
+# \d: is identical to [0-9]. Monotonous number
+# \D: is identical to [^0-9]. All characters except for number
+# \w: is identical to [a-zA-Z0-9_]. Alphabet characters, numbers, underscore character
+# \W: is identical to [^a-zA-Z0-9_]. All characters excpet for alphabet characters, numbers, underscore character
+
+# Since there is character from [0-9] over 1 times(+) in '1234', pattern '\d+' is matched with '1234'
+re.match('\d+', '1234')
+# <_sre.SRE_Match object; span=(0, 4), match='1234'>
+# Since there is character from [^0-9] over 1 times(+) in 'Hello', pattern '\D+' is matched with 'Hello'
+re.match('\D+', 'Hello')
+# <_sre.SRE_Match object; span=(0, 5), match='Hello'>
+# Since there is character from [a-zA-Z0-9_] over 1 times(+) in 'Hello_1234', pattern '\w+' is matched with 'Hello_1234'
+re.match('\w+', 'Hello_1234')
+# <_sre.SRE_Match object; span=(0, 10), match='Hello_1234'>
+# Since there is character from [^a-zA-Z0-9_] over 1 times(+) in 'Hello_1234', pattern '\w+' is matched with 'Hello_1234'
+re.match('\W+', '(:)')
+# <_sre.SRE_Match object; span=(0, 3), match='(:)'>
+
+
+@
+# We will deal with white space
+# Whitespace can be denoted by ' ', \s, \S
+
+# \s is identical to [ \t\n\r\f\v] 
+# ' '(space), \t(tab) \n(new line), \r(carage return), \f(form feed), \v(vertical tab)
+# \S is identical to [^ \t\n\r\f\v]
+# not including ' ', including \t, \n, \r, \f, \v
+
+# Since there is character from [a-zA-Z0-9 ] over 1 times(+) in 'Hello 1234', pattern '[a-zA-Z0-9 ]+' is matched with 'Hello 1234'
+# I denote whitespace by ' '
+re.match('[a-zA-Z0-9 ]+', 'Hello 1234')
+# <_sre.SRE_Match object; span=(0, 10), match='Hello 1234'>
+# Since there is character from [a-zA-Z0-9\s] over 1 times(+) in 'Hello 1234', pattern '[a-zA-Z0-9\s]+' is matched with 'Hello 1234'
+# I denote whitespace by \s
+re.match('[a-zA-Z0-9\s]+', 'Hello 1234')
+# <_sre.SRE_Match object; span=(0, 10), match='Hello 1234'>
+
+@
+# Tip
+# It's not efficient to designate same regular expression pattern in match() and search()
+# If you use same regular expression pattern in match() and search(), it's beneficial to make same regular expression pattern as regular expression object by using compile() and then I can invoke match() and search() on that object
+
+# I create regular expression pattern as object
+p = re.compile('[0-9]+')
+# I invoke match() with passing target string '1234' on instance p
+p.match('1234')
+# <_sre.SRE_Match object; span=(0, 4), match='1234'>
+# I invoke search() with passing target string 'hello' on instance p
+p.search('hello')
+   
+      </xmp>
+   </BODY>
+</HTML>
