@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+028-001. creating set, differnce between list/dictionary and set, frozenset<br/>
+<xmp>
+@
+# Python provides data type which expreses "set"
+
+@
+# I make fruits set which contain 5 elements
+fruits = {'strawberry', 'grape', 'orange', 'pineapple', 'cherry'}
+print(fruits)
+# {'pineapple', 'orange', 'grape', 'strawberry', 'cherry'}
+
+@
+# Elements which are involved in set are unordered
+# So, whenever you print set, the order of elements is different
+
+@
+# You can't put duplicated element into set
+# Actually, if you put duplicated element into set, the only one element is put
+fruits = {'orange', 'orange', 'cherry'}
+print(fruits)
+# {'cherry', 'orange'}
+
+@
+# Unlike list and tuple, you can partial element from set by using indexing sytax
+fruits = {'strawberry', 'grape', 'orange', 'pineapple', 'cherry'}
+print(fruits[0])
+# Traceback (most recent call last):
+#   File "<pyshell#42>", line 1, in <module>
+#     print(fruits[0])
+# TypeError: 'set' object does not support indexing
+
+fruits['strawberry']
+# Traceback (most recent call last):
+#   File "<pyshell#43>", line 1, in <module>
+#     fruits['strawberry']
+# TypeError: 'set' object is not subscriptable
+
+@
+# This time, we will try to make set by using set(iterable_object)
+
+@
+# If you pass string into set(), unique characters are put into set
+a = set('apple')
+print(a)
+# {'e', 'l', 'a', 'p'}
+
+@
+b = set(range(5))
+print(b)
+# {0, 1, 2, 3, 4}
+
+
+@
+# You can make empty set by using set()
+c = set()
+print(c)
+# set()
+
+@
+# The difference between dictionary type and set type
+
+c = {}
+type(c)
+# <class 'dict'>
+c = set()
+type(c)
+# <class 'set'>
+
+@
+# I make set with string in Korean
+set('안녕하세요')
+# {'녕', '요', '안', '세', '하'}
+
+
+@
+# You can't make set inside of set unlike dictionary and list
+
+a = {{1, 2}, {3, 4}}
+# Traceback (most recent call last):
+#   File "<pyshell#3>", line 1, in <module>
+#     a = {{1, 2}, {3, 4}}
+# TypeError: unhashable type: 'set'
+
+@
+# Tip
+# Python privides "frozen set" whose set can't be changed
+
+frozen_set = frozenset(iterable_object)
+
+a = frozenset(range(10))
+print(a)
+# frozenset({0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
+
+# You can't apply set operators(adding element, removing element) and method on frozenset
+a = frozenset(range(10))
+a |= 10
+# Traceback (most recent call last):
+#   File "<pyshell#4>", line 1, in <module>
+#     a |= 10
+# TypeError: unsupported operand type(s) for |=: 'frozenset' and 'int'
+
+a.update({10})
+# Traceback (most recent call last):
+#   File "<pyshell#5>", line 1, in <module>
+#     a.update({10})
+# AttributeError: 'frozenset' object has no attribute 'update'
+   
+      </xmp>
+   </BODY>
+</HTML>
