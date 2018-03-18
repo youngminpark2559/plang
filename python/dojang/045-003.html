@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+045-003. combining regular expression pattern as group<br/>
+<xmp>
+@
+# We used one regular expression pattern to find pattern in target string
+
+# Now, we will talk about combined regular expression with multiple groups of regular expression
+# Regular expression group finds pattern in corresponding target string
+
+# If you use parenthesis to devide regular expression, each separated one becomes group
+
+# Following example finds 2 groups of pattern in target string which is separated by whitespace
+# Since there is character from [0-9] over 1 times(+) in '10', pattern '([0-9]+)' is matched with '10'
+m = re.match('([0-9]+) ([0-9]+)', '10 295')
+# If you designate number into group(), matched string by numberth group pattern will be return
+# If you don't designate number or designate 0, all matched string is returned
+m.group(1)
+# '10'
+# Since there is character from [0-9] over 1 times(+) in '295', pattern '([0-9]+)' is matched with '295'
+m.group(2)
+# '295'
+m.group() 
+# '10 295'
+m.group(0)
+# '10 295'
+
+@
+# groups() returns matched string as tuple
+m.groups()
+# ('10', '295')
+
+@
+# When you deal with many groups of pattern, distingushing each group by number becomes difficult
+# At this menment, naming makes it convinient
+# You can designate name of group by ?P<이름> formant inside of parenthesis,
+# for example, (?P<group_name>regular_expression_pattern)
+
+@
+# This extracts "print" and "1234" from 'print(1234)'
+# group1 : func, [a-zA-Z_][a-zA-Z0-9_]+
+# group2 : arg, \w+
+m = re.match('(?P<func>[a-zA-Z_][a-zA-Z0-9_]+)\((?P<arg>\w+)\)', 'print(1234)')
+# func group finds starting [a-zA-Z_], [a-zA-Z0-9_] over 1 times
+m.group('func')
+# 'print'
+# arg group finds \w over 1 times
+m.group('arg')
+# '1234'
+
+@
+# findall() bring all matched characters (regardless of group unit) in format of list 
+
+# Find [0-9] over 1 times(+) in '1 2 Fizz 4 Buzz Fizz 7 8'
+re.findall('[0-9]+', '1 2 Fizz 4 Buzz Fizz 7 8')
+# ['1', '2', '4', '7', '8']
+
+
+@
+Tip
+# We can use group with * and +
+# In (.[a-z]+)*, + affects . and [a-z] (over 1 times)
+# And * affects (.[a-z]+) (over 0 times)
+
+
+# Starting with [a-z] over 1 times, ending with (. over 1 times, [a-z] over 1 times) over 0 times
+# Pattern is matched with 'hello.world'
+re.match('[a-z]+(.[a-z]+)*$', 'hello.world')
+# <_sre.SRE_Match object; span=(0, 11), match='hello.world'>
+# Starting with [a-z] over 1 times, ending with (. over 1 times, [a-z] over 1 times) over 0 times
+# Pattern is not matched with 'hello.world' because of 1234
+re.match('[a-z]+(.[a-z]+)*$', 'hello.1234')
+# Starting with [a-z] over 1 times, ending with (. over 1 times, [a-z] over 1 times) over 0 times
+# Pattern is matched with 'hello.world' even if there is no alphabet characters
+re.match('[a-z]+(.[a-z]+)*$', 'hello')
+# <_sre.SRE_Match object; span=(0, 5), match='hello'>
+   
+      </xmp>
+   </BODY>
+</HTML>
