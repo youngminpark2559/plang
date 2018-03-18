@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+032-002. keyword argument<br/>
+<xmp>
+@
+def personal_info(name, age, address):
+    print('Name: ', name)
+    print('Age: ', age)
+    print('Address: ', address)
+
+personal_info('Maria', 20, 'US, OHIO')
+# Name:  Maria
+# Age:  20
+# Address:  US, OHIO
+
+# Like above, you should remember order of arguments and use of arguments everytime you use method 
+# To resolve this issue, Python provies keyword argument
+# Keyword argument literally is functionality to attach name on each argument
+# You use keyword argument in the form of "keyword = value"
+
+personal_info(name='Maria', age=20, address='US, OHIO')
+# Name: Maria
+# Age: 20
+# Address: US, OHIO
+
+# Keyword argument has 2 benefits
+# You can see use of each argument
+# You don't need to follow order of arguments
+personal_info(age=20, address='US, OHIO', name='Maria')
+# Name: Maria
+# Age: 20
+# Address: US, OHIO
+
+@
+# sep and end are also keyword argument in print()
+print(10, 20, 30, sep=':', end='')
+
+      </xmp>
+   </BODY>
+</HTML>
