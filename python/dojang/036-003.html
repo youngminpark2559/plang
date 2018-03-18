@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+036-003. private attribute, private method<br/>
+<xmp>
+@
+class Person:
+    def __init__(self, name, age, address):
+        self.hello = 'Hello'
+        self.name = name
+        self.age = age
+        self.address = address
+
+# We can access to attributes(hello, name, age, address) via "self" in method in class and via "instance.attribute" outside of class
+
+maria = Person('maria', 20, 'US, OHIO')
+# I access to name attribute outside of class
+print(maria.name)
+# 'maria'
+
+@
+# We will talk about private attribute which only can be accessed to in class not outside of class
+
+class Person:
+    def __init__(self, name, age, address, wallet):
+        self.name = name
+        self.age = age
+        self.address = address
+        # Private attribute should start with 2 underscores(__)
+        # This is private attribute
+        self.__wallet = wallet
+
+# I'm accessing to __wallet attribute inside of __init__() in Person class 
+maria = Person('maria', 20, 'US, OHIO', 10000)
+# This makes error because I'm accessing to __wallet private attribute via maria instance outside of Person class
+maria.__wallet -= 10000  
+# Traceback (most recent call last):
+#   File "C:₩project₩class_private_attribute_error.py", line 9, in <module>
+#     maria.__wallet -= 10000    # 클래스 바깥에서 비공개 속성에 접근하면 에러가 발생함
+# AttributeError: 'Person' object has no attribute '__wallet'
+
+@
+class Person:
+    def __init__(self, name, age, address, wallet):
+        self.name = name
+        self.age = age
+        self.address = address
+        self.__wallet = wallet
+    
+    # I create pay() in Person class to access to private attribute __wallet
+    def pay(self, amount):
+        self.__wallet -= amount 
+        print('Now, you have {0} dollor'.format(self.__wallet))
+ 
+maria = Person('maria', 20, 'US, OHIO', 10000)
+maria.pay(3000)
+# Now, you have 7000 dollor
+
+@
+def pay(self, amount):
+    if amount > self.__wallet:
+        print('You have less money than amount you want to draw')
+        return
+    self.__wallet -= amount
+
+# Like this, private attribute is used when you don't want to display some data outside
+# Or, when you don't want some data to be changed outside
+# Only member which can change value of private attribute is method in corresponding class
+
+@
+# Tip
+# Attribute which you can access to outside of class is called "public attribute" or "public member"
+
+@
+# Tip
+# If you append "__" to in front of method name, that method becomes private method which can be invoked only inside of class
+
+class Person:
+    # This is private method
+    def __greeting(self):
+        print('Hello')
+ 
+    def hello(self):
+        # I can invoke __greeting() inside of Person class
+        self.__greeting() 
+ 
+james = Person()
+# I can't invoke __greeting() outside of Person class
+james.__greeting()
+   
+      </xmp>
+   </BODY>
+</HTML>
