@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+036-001. writing method in class<br/>
+<xmp>
+@
+First parameter of method should be "self"
+
+@
+class Person:
+    def greeting(self):
+        print('Hello')
+
+# I can create instance of Person class by appending parenthesis next to name of class
+james = Person()
+print(james)
+# <__main__.Person object at 0x027E3AD0>
+# This is "Person object" which is located at 0x027E3AD0 in memory
+
+
+@
+# I invoke greeting() of james instance
+james.greeting()
+# Hello
+
+@
+# I can create empty class by using "pass" keyword
+
+class Person:
+    pass
+
+@
+class Person:
+    def greeting(self):
+        # I invoke print() which is located in outside of Person class
+        print('Hello')
+ 
+    def hello(self):
+        # I invoke greeting() which is located in Person class
+        # by using self.method() syntax
+        self.greeting()
+        # I invoke greeting() which is located in outside of Person class
+        greeting()
+ 
+james = Person()
+james.hello()    
+# output:
+# Hello
+
+@
+# I use isinstance(instance, class) when I want to know if some instance comes from specific class or not
+
+class Person:
+    pass
+james = Person()
+isinstance(james, Person)
+# output:
+# True
+
+</xmp>
+   </BODY>
+</HTML>
