@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+036-002. attribute, __init__(), magic method, special method, instance attribute, *args, **kwargs, __slot__<br/>
+<xmp>
+@
+# When you create attribute, we can assign attribute value into self.attribute variable in __init(self)
+
+class ClassName:
+    def __init__(self):
+        self.attribute = attribute_value
+
+@
+class Person:
+    def __init__(self):
+        # I create hello attribute and assign 'Hello, world' into hello attribute
+        self.hello = 'Hello, world'
+ 
+    def greeting(self):
+        # I pass value of hello attribute into print()
+        print(self.hello)
+ 
+james = Person()
+james.greeting()
+# output:
+# Hello, world
+
+@
+# When you create instance by using "Person()" syntax, __init__() in Person class is invoked
+# In other words, __init__() initialzies instance
+
+@
+# Methods which are appended 4 underscores are methods which Python automatically invokes
+# They're called as "magic method" or "special method"
+
+# From now on, when we use various functionalities in Python, we will use those functionalities by putting values into these special methods
+
+
+@
+# "self" mean specific instance itself
+# When you create instance, that instance is added by value('Hello, world') of hello attribute
+# The value which is passed into self of __init__() can be said instance of Person("Person()")
+# And finally created Person instance is assigned to variable james
+# After this, whenever you invoke any methods in Person instance, created and initialized instance is passed into parameter of method
+
+class Person:
+    def __init__(self):
+        self.hello = 'Hello, world'
+ 
+    def greeting(self):
+        print(self.hello)
+
+
+@
+# We will talk about how to designate value when you create instance
+
+class 클래스이름:
+    # For that, we should make parameters next to "self" parameter
+    def __init__(self, parameter_1, parameter_2):
+        # And then, you should add created parameters into self.attribute in __init__()
+        self.attribute_1 = parameter_1
+        self.attribute_2 = parameter_2
+
+@
+class Person:
+    def __init__(self, name, age, address):
+        self.hello = 'Hello'
+        self.name = name
+        self.age = age
+        self.address = address
+ 
+    def greeting(self):
+        print('{0}. My name is {1}.'.format(self.hello, self.name))
+ 
+alice = Person('Alice', 20, 'US, OHIO')
+alice.greeting()
+# Hello. My name is Alice
+ 
+print('Name:', alice.name)       
+print('Age:', alice.age)        
+print('Address:', alice.address) 
+
+
+@
+class Person:
+    def __init__(self, name, age, address):
+        self.hello = 'Hello'
+        self.name = name
+        self.age = age
+        self.address = address
+ 
+    def greeting(self):
+        print('{0}. My name is {1}.'.format(self.hello, self.name))
+
+# I create Persone instance with passing values
+alice = Person('Alice', 20, 'US, OHIO')
+
+
+@
+# When you access to attribute inside of class, you used self.attribute
+# When you access to attribute outside of class, you can use instance.attribute
+print('Name:', alice.name)
+print('Age:', alice.age) 
+print('Address:', alice.address)
+
+@
+# Attribute which can be accessed to via instance is called instance attribute
+
+@
+# Tip
+# We call attribute and method which are located in class "member"
+# In this case, attribute(hello, name, age, address) and method(greeting()) are members of Person class
+
+@
+int, list, dict are also class
+# What we did is that we created instance of each class and then used methods from each instance
+
+a = int(10)
+print(a)
+# 10
+b = list(range(10))
+print(b)
+# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+c = dict(x=10, y=20)
+print(c)
+# {'x': 10, 'y': 20}
+
+@
+# Since we use int class too much, Python allows us to use int class without creating instance
+# It's also same with list and dictionary
+# We can them simply with [] and {}
+# But note that they're all classes
+
+@
+b = list(range(10))
+b.append(20)
+print(b)
+# [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20]
+
+@
+# In Python, all data types are class
+# So, you can confirm which class some instance comes from by using "type(instance)"
+
+a = 10
+type(a)
+# <class 'int'>
+b = [0, 1, 2]
+type(b)
+# <class 'list'>
+c = {'x':10, 'y':20}
+type(c)
+# <class 'dict'>
+maria = Person()
+type(maria)
+# <class '__main__.Person'>
+
+
+@
+# Tip
+# The difference between instance and object
+They're impossible with Person_Object1, Person_Object2, ...
+They're possible with Person_Instance1, Person_Instance2, ...
+
+
+@
+# *args
+class Person:
+    def __init__(self, *args):
+        self.name = args[0]
+        self.age = args[1]
+        self.address = args[2]
+ 
+maria = Person(*['maria', 20, 'US, OHIO'])
+
+
+@
+# **kwargs
+class Person:
+    def __init__(self, **kwargs):
+        self.name = kwargs['name']
+        self.age = kwargs['age']
+        self.address = kwargs['address']
+ 
+maria1 = Person(name='maria', age=20, address='US, OHIO')
+maria2 = Person(**{'name': 'maria', 'age': 20, 'address': 'US, OHIO'})
+
+@
+# I add attribute after created instance
+
+class Person:
+    pass
+
+# I create Person instance
+maria = Person() 
+# I add name attribute and its value maria
+maria.name = 'maria'
+print(maria.name)
+# 'maria'
+
+# Importantly note that attribute which is added in this way is created only inside of corresponding instance
+
+# I create Person instance
+james = Person()    
+james.name
+# Traceback (most recent call last):
+#   File "<pyshell#11>", line 1, in <module>
+#     james.name
+# AttributeError: 'Person' object has no attribute 'name'
+
+
+@
+# Since you can add attribute after created instance, you can add attribute viw other method than __init__()
+# But note that in this case, attribute is only created after invoking method
+
+class Person:
+    def greeting(self):
+        # I add hello attribute inside of greeting()
+        self.hello = 'Hello'
+
+# I create Person instance
+maria = Person()
+# maria instance doesn't have hello attribute yet
+maria.hello
+# Traceback (most recent call last):
+#   File "<pyshell#22>", line 1, in <module>
+#     maria.hello
+# AttributeError: 'Person' object has no attribute 'hello'
+
+# I add hello attribute by invoking greeting()
+maria.greeting() 
+maria.hello      
+# 'Hello'
+
+@
+# There can be cases you want to add value of particular attributes via instance
+
+# For this, you can use __slot__ variable storing list in class to allow particular attributes to be added into attribute
+__slots__ = ['attribute1_you_can_add_its_value', 'attribute2_you_can_add_its_value']
+
+class Person:
+    # I allow only 'name' attibute and 'age' attibute to be added into value of attribute
+    __slots__ = ['name', 'age']    
+
+maria = Person()
+maria.name = 'maria'                     
+maria.age = 20                          
+# This will make error  
+maria.address = 'US, OHIO'  
+# Traceback (most recent call last):
+#   File "<pyshell#32>", line 1, in <module>
+#     maria.address = 'US, OHIO'
+# AttributeError: 'Person' object has no attribute 'address'
+   
+      </xmp>
+   </BODY>
+</HTML>
