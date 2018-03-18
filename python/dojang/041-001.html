@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+041-001. iterable object, __iter__(), iterator, __next__(), StopIteration<br/>
+<xmp>
+@
+iterator is object which can extract values in turn
+
+# We've used range() when we used "for" interation statement
+If we interate 100 times, we make "for i range(100):"
+# range(100) doesn't make all numbers from 0 to 99 at once
+# Actually, range(100) creates iterator object which can extract values from 0 to 99
+# After that, iterator extracts value one by one as we interate
+
+# If we make large continous numbers in advance, it consumes much of memory size
+# So, Python creates only iterator and iterator creates real value one by one
+# That is, Python postpones generating data
+# We call this way "lazy evaluation"
+
+@
+# Before we create iterator, we need to know "iterable object"
+# Iterable object is literally iterable object such as string, list, dictionalry, set, etc
+
+If you want to check if some object is iterable,
+# you can check if __iter__ exists in object by using dir() to see methods of object
+
+dir([1, 2, 3])
+# ['__add__', '__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']
+
+# You can invoke __iter__() then you get iterator
+[1, 2, 3].__iter__()
+# <list_iterator object at 0x03616630>
+
+@
+# You can store iterator into variabe
+it = [1, 2, 3].__iter__()
+# You can invoke __next__() to extract each element one by one in turn
+it.__next__()
+# 1
+it.__next__()
+# 2
+it.__next__()
+# 3
+# There is no more element to extract
+# In this case, iterator makes StopIteration exception to terminate iteration
+it.__next__()
+# Traceback (most recent call last):
+#   File "<pyshell#48>", line 1, in <module>
+#     it.__next__()
+# StopIteration
+
+
+@
+# string
+'Hello, world!'.__iter__()
+# <str_iterator object at 0x03616770>
+# Dictionary
+{'a': 1, 'b': 2}.__iter__()
+# <dict_keyiterator object at 0x03870B10>
+# Set
+{1, 2, 3}.__iter__()
+# <set_iterator object at 0x03878418>
+
+# List, string, dictionary, set is visible iterable object
+# Let's talk about invisible interable one, range()
+it = range(3).__iter__()
+it.__next__()
+# 0
+it.__next__()
+# 1
+it.__next__()
+# 2
+it.__next__()
+# Traceback (most recent call last):
+#   File "<pyshell#5>", line 1, in <module>
+#     it.__next__()
+# StopIteration
+
+@
+# Let's talk about process when you use iterable object in "for" loop
+# If you use range(3) in "for" loop, first, range(3) gets iterator by invoking __iter__()
+# And each time you iterate, range(3) extracts each value by invoking __next__() and stores it into "i"
+# And if number reaches 3, range(3) makes StopIteration exception and terminates iteration
+
+
+@
+# Iterable object gets "iterator" by invoking __iter__()
+# And iterator invokes __next__() to iterate
+
+@
+# Ordinarily, iterable object and iterator are separated
+# But, if you implement __iter__() and __next__() in class, you can make iterator
+# Object which has __iter__() and __next__() is called that object supports "iterator protocol"
+
+
+@
+# If summary, iterable object is object which "brings" one element per one time
+# Iterator is object which pulls values in turn by invoking __next__()
+# Since iterable object and iterator object are separated objects, you should distingush those two
+# Finally, that is, iterable object gets iterator by invoking __iter__()
+   
+      </xmp>
+   </BODY>
+</HTML>
