@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+045-004. replacing string, sub(), raw string in regualr expression<br/>
+<xmp>
+@
+# Find patter(apple or orange), replace it with fruit in target string 'apple box orange tree'
+re.sub('apple|orange', 'fruit', 'apple box orange tree')
+# 'fruit box fruit tree'
+
+# Find [0-9] showing over 1 times, replace it with n in target string '1 2 Fizz 4 Buzz Fizz 7 8'
+re.sub('[0-9]+', 'n', '1 2 Fizz 4 Buzz Fizz 7 8')
+# 'n n Fizz n Buzz Fizz n n'
+
+@
+# You can pass method which returns target replacement into sub()
+
+# Method which returns target replacement takes match object m
+def multiple10(m):
+    # Bring matched string by m.group() and convert that string into int
+    n = int(m.group())
+    # This method returns final target replacement
+    return str(n * 10)
+
+# Find [0-9] showing over 1 times, target replacement is what multiple10() returns, target string '1 2 Fizz 4 Buzz Fizz 7 8'
+re.sub('[0-9]+', multiple10, '1 2 Fizz 4 Buzz Fizz 7 8')
+# '10 20 Fizz 40 Buzz Fizz 70 80'
+
+@
+# You can use lambda expression to make method which returns target replacement
+re.sub('[0-9]+', lambda m: str(int(m.group()) * 10), '1 2 Fizz 4 Buzz Fizz 7 8')
+# '10 20 Fizz 40 Buzz Fizz 70 80'
+
+@
+# group1 finds hello
+# group2 finds 1234
+# '([a-z]+) ([0-9]+)' finds hello 1234
+# I replace 'hello 1234' with '\\2 \\1 \\2 \\'
+# I replace 'hello 1234' with '1234 hello 1234 hello'
+re.sub('([a-z]+) ([0-9]+)', '\\2 \\1 \\2 \\1', 'hello 1234')
+# '1234 hello 1234 hello'
+
+@
+# ({\s*) group1 finds '{ '
+# (\w+) group2 finds 'name'
+# (\w+) group3 finds 'james'
+# (\s*}) group4 finds ' }'
+# '({\s*)"(\w+)":\s*"(\w+)"(\s*})' finds '{ "name": "james" }'
+# I replace '{ "name": "james" }' with '<\\2>\\3</\\2>'
+# I replace '{ "name": "james" }' with '<name>jamaes</name>'
+re.sub('({\s*)"(\w+)":\s*"(\w+)"(\s*})', '<\\2>\\3</\\2>', '{ "name": "james" }')
+# '<name>james</name>'
+
+@
+# ({\s*) group1 finds '{ '
+# (?P<key>\w+) group2(name key) finds 'name'
+# (?P<value>\w+) group3(name value) finds 'james'
+# (\s*}) group4 finds ' }'
+# '({\s*)"(?P<key>\w+)":\s*"(?P<value>\w+)"(\s*})' finds '{ "name": "james" }'
+# I replace '{ "name": "james" }' with '<\\g<key>>\\g<value></\\g<key>>'
+# I replace '{ "name": "james" }' with '<name>jamaes</name>'
+re.sub('({\s*)"(?P<key>\w+)":\s*"(?P<value>\w+)"(\s*})', '<\\g<key>>\\g<value></\\g<key>>', '{ "name": "james" }')
+# '<name>james</name>'
+
+@
+# Tip
+# When you want to find special characters in regular expression pattern, you use \
+# But in other way, you can use 'r' to make regular expression pattern as raw string
+# In that raw string, you can find special character without \
+
+# Therefore, in raw string, you can use \number, \g<name>, \g<number> instead of \\number, \\g<name>, \\g<number>
+
+# ({\s*) group1 finds '{ '
+# (\w+) group2 finds 'name'
+# (\w+) group3 finds 'james'
+# (\s*}) group4 finds ' }'
+# '({\s*)"(\w+)":\s*"(\w+)"(\s*})' finds '{ "name": "james" }'
+# I replace '{ "name": "james" }' with r'<\2>\3</\2>'
+# I replace '{ "name": "james" }' with '<name>jamaes</name>'
+re.sub('({\s*)"(\w+)":\s*"(\w+)"(\s*})', r'<\2>\3</\2>', '{ "name": "james" }')
+# '<name>james</name>'
+   
+      </xmp>
+   </BODY>
+</HTML>
