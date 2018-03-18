@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+045-001. using regular expressing, re.match(), re.search(), ^, $, |<br/>
+<xmp>
+@
+# Regular expression is way to express string which has specific pattern
+# So, regular expression is used to search string in specific pattern, and to extract them, and to replace them with other pattern
+# And, regular expression is also used to check if some string follows specific rules
+
+@
+# match() judges if entire "pattern" is contained in string or not
+re.match(pattern, string)
+
+import re
+# It judges if 'Hello, world!' contains 'Hello'
+re.match('Hello', 'Hello, world!')
+# <_sre.SRE_Match object; span=(0, 5), match='Hello'>
+# It judges if 'Hello, world!' contains 'Python'
+re.match('Python', 'Hello, world!')
+
+@
+# search() judges if partial pattern is matched or not
+
+# Since 'Hello, world!' starts with Hello, pattern '^Hello' is matched with 'Hello, world!'
+re.search('^Hello', 'Hello, world!')
+# <_sre.SRE_Match object; span=(0, 5), match='Hello'>
+# Since 'Hello, world!' ends with world!, pattern 'world!$' is matched with 'Hello, world!'
+re.search('world!$', 'Hello, world!')  
+# <_sre.SRE_Match object; span=(7, 13), match='world!'>
+
+@
+# We can use | when using match()
+# There are hello or world in 'hello', pattern of 'hello|world' is matched with 'hello'
+re.match('hello|world', 'hello')   
+# <_sre.SRE_Match object; span=(0, 5), match='hello'>
+   
+      </xmp>
+   </BODY>
+</HTML>
