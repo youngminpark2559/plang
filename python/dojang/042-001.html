@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+042-001. generator method, yield<br/>
+<xmp>
+@
+# Generator makes iterator
+# Iterator should implement __iter__(), __next__(), __getitem__() in class
+# But generator only needs using yield keyword in method
+# Therefore, you can make generator much easier than making iterator
+
+@
+# In method, if you use yield keyword, that method becomes generator
+# And you designame value or variable on yield keyword
+
+def number_generator():
+    yield 0
+    yield 1
+    yield 2
+ 
+for i in number_generator():
+    print(i)
+# 0
+# 1
+# 2
+
+@
+# Let's see if object which is created via generator is iterator
+g = number_generator()
+print(g)
+# <generator object number_generator at 0x03A190F0>
+# dir(g)
+# ['__class__', '__del__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__name__', '__ne__', '__new__', '__next__', '__qualname__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'close', 'gi_code', 'gi_frame', 'gi_running', 'gi_yieldfrom', 'send', 'throw']
+
+# If you invoke number_generator(), you're rueturned generator object
+# If you explore generator object by invoking dir(), you can see __iter__(), __next__() which you can see in iterator
+
+# Actually, if you invoke __next__() of generator object, you can see StopIteration after displaying 0,1,2
+g.__next__()
+# 0
+g.__next__()
+# 1
+g.__next__()
+# 2
+g.__next__()
+# Traceback (most recent call last):
+#   File "<pyshell#29>", line 1, in <module>
+    # g.__next__()
+# StopIteration
+
+
+@
+# The action of generator is same with iterator
+# Like this, you can simply implement iterator by writing yield in method
+# The difference is return value of __next__() is returned by return statement in method in case of iterator
+# return value of __next__() is returned from designated value of yield keyword in method in case of generator
+
+# Moreover, iterator directly makes StopIteration exception by invoking raise()
+# Generator automatically makes StopIteration exception when method reaches end
+
+@
+# Generator generates value from yield keyword by executing up to yield code whenever generator object invokes __next__(), so that, generator has name of generator
+
+
+@
+# Let's try to use generator on "for" loop
+# Each time of iteration by "for" loop, "for" invokes __next__() to bring generated value from yield
+# And "for" terminates iteration when StopIteration occurs because of reaching to end of method
+
+
+@
+# You invoke generator method containing yield keyword
+# Then you get "generator object"
+# You invoke __iter__() on generator object
+# __iter__() returns self instance
+# You're returned "generator object"
+
+@
+# Let's talk about name of yield keyword
+# Why did they give name yield not generate?
+# yield means produce and concede
+# yield concedes "executing code" to outside, with passing value of yield to outside
+# So, that means yield makes method containing yield stop executing but code located in outside of that method execute
+
+@
+# Let's try to directly use next() to invoke __next__() instead of "for" iteration
+
+
+def number_generator():
+    # This one transfers 0 to outside, at the same time, this one concedes executing code to outside
+    yield 0
+    yield 1
+    yield 2
+ 
+g = number_generator()
+# g is generator object 
+# Transferred value from yield is returned from next()
+a = next(g)
+print(a)
+# 0
+ 
+b = next(g)
+print(b)
+# 1
+ 
+c = next(g)
+print(c)       
+# 2
+
+@
+Tip
+# If you reach to end of method, StopIteration exception is occurred in terms of generator
+# Since return terminates method, if return is executed in middle of code, StopIteration is also occurred
+
+# If you designate some value on return in generator method, that some value becomes message of StopIteration
+def one_generator():
+    yield 1
+    return 'some_value'
+ 
+try:
+    g = one_generator()
+    next(g)
+    next(g)
+except StopIteration as e:
+    This prints "some_value"
+    print(e)    
+   
+      </xmp>
+   </BODY>
+</HTML>
