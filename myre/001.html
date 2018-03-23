@@ -48,6 +48,9 @@ MathJax.Hub.Config({
    <BODY>
 <xmp>
 @
+I remove entire line which contains specific words   
+
+@
 # I remove entire line which contains specific words
 refinedaddress = str(onevideo).replace('<a href="', 'https://channel9.msdn.com/').replace('">',  '\nabove video\'s title : ').replace('</a>','')
 listremovedtitle = result_text = re.sub(r'(above video).*', '', refinedaddress).replace('\n\n', '\n')
