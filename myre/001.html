@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+<xmp>
+@
+# I remove entire line which contains specific words
+refinedaddress = str(onevideo).replace('<a href="', 'https://channel9.msdn.com/').replace('">',  '\nabove video\'s title : ').replace('</a>','')
+listremovedtitle = result_text = re.sub(r'(above video).*', '', refinedaddress).replace('\n\n', '\n')
+
+https://channel9.msdn.com//Shows/The-Open-Source-Show/Part-1-of-4-Create-a-Web-Application-and-push-it-into-Docker-Hub
+above video's title : Part 1 of 4: Create a Web Application and push it into Docker Hub
+https://channel9.msdn.com//Shows/ifdefWINDOWS/ifdef-WINML
+above video's title : #ifdef WINML - Windows Machine Learning
+https://channel9.msdn.com//Shows/This+Week+On+Channel+9/TWC9-MVP-Summit-Windows-Developer-Day-International-Womens-Day-and-more        
+
+https://channel9.msdn.com//Shows/The-Open-Source-Show/Part-1-of-4-Create-a-Web-Application-and-push-it-into-Docker-Hub
+https://channel9.msdn.com//Shows/ifdefWINDOWS/ifdef-WINML
+https://channel9.msdn.com//Shows/This+Week+On+Channel+9/TWC9-MVP-Summit-Windows-Developer-Day-International-Womens-Day-and-more    
+   
+      </xmp>
+   </BODY>
+</HTML>
