@@ -37,8 +37,8 @@ MathJax.Hub.Config({
                equationNumbers: { autoNumber: "AMS" } },
         extensions: ["tex2jax.js"],
         jax: ["input/TeX","output/HTML-CSS"],
-        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        tex2jax: { inlineMath: [ ['$$$','$$$'] ],
+                   displayMath: [ ['$$','$$'] ],
                    processEscapes: true },
         "HTML-CSS": { availableFonts: ["TeX"],
                       linebreaks: { automatic: true } }
@@ -49,7 +49,8 @@ MathJax.Hub.Config({
 <xmp>
 @
 I remove entire line which contains specific words   
-
+I select entire line with "starting string" and "ending string"
+   
 @
 # I remove entire line which contains specific words
 refinedaddress = str(onevideo).replace('<a href="', 'https://channel9.msdn.com/').replace('">',  '\nabove video\'s title : ').replace('</a>','')
@@ -64,7 +65,13 @@ https://channel9.msdn.com//Shows/This+Week+On+Channel+9/TWC9-MVP-Summit-Windows-
 https://channel9.msdn.com//Shows/The-Open-Source-Show/Part-1-of-4-Create-a-Web-Application-and-push-it-into-Docker-Hub
 https://channel9.msdn.com//Shows/ifdefWINDOWS/ifdef-WINML
 https://channel9.msdn.com//Shows/This+Week+On+Channel+9/TWC9-MVP-Summit-Windows-Developer-Day-International-Womens-Day-and-more    
+  
+@
+I select entire line with "starting string" and "ending string"
+In.+]:
+In.+]:$
    
+In [19]:
       </xmp>
    </BODY>
 </HTML>
