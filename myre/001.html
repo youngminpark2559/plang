@@ -56,6 +56,8 @@ I select entire line with "starting string" and "ending string"
 refinedaddress = str(onevideo).replace('<a href="', 'https://channel9.msdn.com/').replace('">',  '\nabove video\'s title : ').replace('</a>','')
 listremovedtitle = result_text = re.sub(r'(above video).*', '', refinedaddress).replace('\n\n', '\n')
 
+or simply, above.+\n   
+   
 https://channel9.msdn.com//Shows/The-Open-Source-Show/Part-1-of-4-Create-a-Web-Application-and-push-it-into-Docker-Hub
 above video's title : Part 1 of 4: Create a Web Application and push it into Docker Hub
 https://channel9.msdn.com//Shows/ifdefWINDOWS/ifdef-WINML
