@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$$$','$$$'] ],
+                   displayMath: [ ['$$$$','$$$$'] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+003-005. Lambda
+<xmp>
+@
+Lambda makes method one sentence
+
+@
+lambda parameters: method expression
+
+@
+def hap(x, y):
+    return x + y
+
+hap(10, 20)
+# 30
+
+(lambda x,y: x + y)(10, 20)
+# 30
+
+@
+map(method, list)
+
+# python2
+# [0,1,2,3,4]
+map(lambda x: x ** 2, range(5))             
+# [0, 1, 4, 9, 16]  
+
+# python2, 3
+# [0,1,2,3,4]
+list(map(lambda x: x ** 2, range(5)))     
+# [0, 1, 4, 9, 16]
+
+@
+# reduce(method, ordered type data)
+# ordered type data is string, list, tuple
+# reduce() applies elements of ordered type data accumulatively
+# You should use following code in python 3
+from functools import reduce
+reduce(lambda x, y: x + y, [0, 1, 2, 3, 4])
+# 10
+
+reduce(lambda x, y: y + x, 'abcde')
+# 'edcba'
+
+@
+filter(method, list)
+
+# python2
+filter(lambda x: x < 5, range(10))       
+# [0, 1, 2, 3, 4]  
+# python2,3
+list(filter(lambda x: x < 5, range(10)))
+# [0, 1, 2, 3, 4]
+
+filter(lambda x: x % 2, range(10))        
+# [1, 3, 5, 7, 9]  
+list(filter(lambda x: x % 2, range(10)))  # 파이썬 2 및 파이썬 3
+# [1, 3, 5, 7, 9]
+   
+      </xmp>
+   </BODY>
+</HTML>
+
+
