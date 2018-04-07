@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+   <HEAD>
+      <TITLE>My first HTML document</TITLE>
+      <style rel="stylesheet" type="text/css">
+body {
+ font-size: 25px;
+ 
+ margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    margin-left: 80px;
+    
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 80px;
+    padding-left: 80px;
+    
+    line-height:1.6em
+}
+</style>
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    "HTML-CSS" : {
+        availableFonts : ["STIX"],
+        preferredFont : "STIX",
+        webFont : "STIX-Web",
+        imageFont : null
+    }
+});
+</script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js" type="text/javascript">    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"], 
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$$$','$$$'] ],
+                   displayMath: [ ['$$$$','$$$$'] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
+   </HEAD>
+   <BODY>
+047-004. matplotlib, plt.show()
+<xmp>
+# @
+# If you use %matplotlib inline,
+# you don't need to use matplotlib.pyplot,show(),
+# to draw graph
+%matplotlib inline
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+# This code is for configuring korean language font
+# First, you get font
+font_name=mpl.font_manager.FontProperties(fname='C:/Windows/Fonts/malgun.ttf').get_name()
+# Second, you configure font
+mpl.rc('font',family=font_name)
+
+# Data was written in "euc-kr"
+dataframe=pd.read_csv('weather.csv',index_col='point',encoding='euc-kr')
+# 서울,25.6,30
+# 백령도,18.4,62
+
+# You extract "big city" column data,
+# to create dataframe
+city_dataframe=dataframe.loc[['서울','인천','대전','대구','광주','부산','울산']]
+
+# You can configure various options for graph
+# You create subplot instance on city_dataframe,
+# and you assign that subplot instance into ax variable
+ax=city_dataframe.plot(kind='bar',title='날씨',figsize=(12,4),legend=True,fontsize=12)
+# You configure xlabel on ax variable
+ax.set_xlabel('도시',fontsize=12)
+ax.set_ylabel('기온/습도',fontsize=12)
+ax.legend(['기온','습도'],fontsize=12)
+
+# @
+ax=city_dataframe.plot(kind='bar',title='날씨',figsize=(12,4),legend=True,fontsize=12)
+ax.set_xlabel('도시',fontsize=12)
+ax.set_ylabel('기온/습도',fontsize=12)
+ax.legend(['기온','습도'],fontsize=12)
+
+# If you don't use %matplotlib inline,
+# you can use matplotlib.pyplot.show()
+   
+</xmp>
+</BODY>
+</HTML>
