@@ -60,6 +60,7 @@ Normal distribution works better in deep learning,
 because it's more suited for cross validated
 
 @
+*
 A_method() in A_class can be used in other class
 class Dialog():
    def load_vocabulary(self,vocabulary_path):
@@ -69,8 +70,19 @@ class ChatBot:
     def __init__(self,voc_path,train_dir):
         self.dialog=Dialog()
         self.dialog.load_vocabulary(vocabulary_path)
+
+*
+member_variable in A_class can be used in other class
+class Dialog():
+    def __init__(self):
+        self.vocabulary_size=0
+   
+class ChatBot:
+    def __init__(self,vocabulary_path,checkpoint_dir_for_train):
+        self.dialog=Dialog()
+        self.model=Seq2Seq(self.dialog.vocabulary_size)
    
    
-      </xmp>
-   </BODY>
+</xmp>
+</BODY>
 </HTML>
