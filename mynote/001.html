@@ -82,6 +82,20 @@ class ChatBot:
         self.dialog=Dialog()
         self.model=Seq2Seq(self.dialog.vocabulary_size)
    
+@
+You can't import pythonfile.py,
+if that file has error.
+And kind of error can be useless spaces
+   
+class Seq2Seq:
+    logits=None
+    def _build_cells(self,dropout=0.5):
+        enc_cell_list\ <here, useless added space can cause error>
+            =tf.nn.rnn_cell.MultiRNNCell(\
+                [self._cell(dropout) for _ in range(self.number_of_layers)])   
+
+Due to above error, you can't import model.py file
+from model import Seq2Seq
    
 </xmp>
 </BODY>
