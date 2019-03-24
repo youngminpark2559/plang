@@ -1,7 +1,3 @@
-# source activate py36gputorch041
-# cd /mnt/1T-5e7/mycodehtml/p_lang/python/dojang
-# rm e.l && python 39.2_이터레이터_만들기.py 2>&1 | tee -a e.l && code e.l
-
 
 # Create iterator class
 # class Iterator_name_you_want:

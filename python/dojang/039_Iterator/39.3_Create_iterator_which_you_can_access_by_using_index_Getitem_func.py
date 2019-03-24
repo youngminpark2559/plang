@@ -1,4 +1,4 @@
-class 이터레이터이름:
+class Iterator_name_you_want:
   # If you implement __getitem__() in class
   # That class becomes iterator
   # __iter__, __next__ are omittable, 
